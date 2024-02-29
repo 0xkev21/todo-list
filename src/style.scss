@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
+
+// Variables
+$bg-red: #fd857b;
+$bg-yellow: #F7D060;
+$bg-green: #98D8AA;
+$bg-primary: #b098df;
+$color-bg: rgb(235, 235, 235);
+
+$color-red: #3d120e;
+$color-yellow: #57481f;
+$color-green: #163f21;
+$color-primary: #251643;
+$color-text: rgb(18, 18, 18);
+
+html[data-theme="light"] {
+    --text-color-red: #{$color-red};
+    --text-color-yellow: #{$color-yellow};
+    --text-color-green: #{$color-green};
+    --text-color-primary: #{$color-primary};
+    --text-color: #{$color-text};
+
+    --bg-color-red: #{$bg-red};
+    --bg-color-yellow: #{$bg-yellow};
+    --bg-color-green: #{$bg-green};
+    --bg-color-primary: #{$bg-primary};
+    --bg-color: #{$color-bg};
+}
+
+html[data-theme="dark"] {
+    --text-color-red: #{$bg-red};
+    --text-color-yellow: #{$bg-yellow};
+    --text-color-green: #{$bg-green};
+    --text-color-primary: #{$bg-primary};
+    --text-color: #{$color-bg};
+
+    --bg-color-red: #{$color-red};
+    --bg-color-yellow: #{$color-yellow};
+    --bg-color-green: #{$color-green};
+    --bg-color-primary: #{$color-primary};
+    --bg-color: #{$color-text};
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Noto Sans Symbols';
+    line-height: 1.5;
+}
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    // border: 1px solid red;
+}
+
+@mixin button($color, $corner) {
+    padding: 0.5rem 1rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+
+    @if $color == red {
+        background-color: var(--bg-color-red);
+        color: var(--text-color-red);
+    }
+    @else if $color == yellow {
+        background-color: var(--bg-color-yellow);
+        color: var(--text-color-yellow);
+    }
+    @else if $color == green {
+        background-color: var(--bg-color-green);
+        color: var(--text-color-green);
+    }
+    @else {
+        background-color: var(--bg-color-primary);
+        color: var(--text-color-primary);
+    }
+
+    @if $corner == rounded {
+        border-radius: 0.8rem;
+    }
+    @else if $corner == circle {
+        border-radius: 100px;
+    }
+    @else {
+        border-radius: 0;
+    }
+}
+
+button.red {
+    @include button(red, circle);
+}
+button.yellow {
+    @include button(yellow, circle);
+}
+button.green {
+    @include button(green, circle);
+}
+button {
+    @include button(primary, circle);
+}
+button:hover {
+    filter: brightness(1.3);
+}
+
+body {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto;
+    height: 100vh;
+    overflow: hidden;
+
+    aside, main {
+        padding: 1rem;
+        position: relative;
+        overflow-y: scroll;
+        height: 100vh;
+    }
+
+    aside::-webkit-scrollbar, main::-webkit-scrollbar {
+        width: 0.5rem;
+        background-color: var(--bg-color-primary);
+    }
+
+    aside::-webkit-scrollbar-thumb, main::-webkit-scrollbar-thumb {
+        background-color: var(--text-color-primary);
+        border-radius: 20px;
+    }
+}
+
+.circle-btn {
+    // position: absolute;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+.fill-btn {
+    width: 100%;
+    height: 3rem;
+}
+.link-btn {
+    width: 100%;
+    background-color: transparent;
+    height: 3rem;
+}
+.link-btn:hover {
+    background-color:#9781c251;
+}
+
+aside {
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        letter-spacing: 0.2rem;
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .side-bar-toggle {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .projects {
+        margin-top: 4.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .my-projects {
+        position: relative;
+    }
+
+    .new-project-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+main {
+    
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Todo List</title>
+</head>
+<body>
+    <aside>
+        <nav>
+            <div class="profile">
+                <button type="button" class="profile-button circle-btn" title="Profile">
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                </button>
+                <h4>User</h4>
+            </div>
+            <button type="button" class="side-bar-toggle circle-btn" title="Toggle Sidebar">
+                <span class="material-symbols-outlined">
+                    view_sidebar
+                </span>
+            </button>
+        </nav>
+        <div class="projects">
+            <div class="new-project-button-container">
+                <button class="new-project-button fill-btn" title="Add new Project">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+                    Add new task
+                </button>
+            </div>
+            <div class="main-lists">
+                <button class="link-btn" type="button" title="Home">
+                    Home
+                </button>
+                <!-- Default Lists to show when the page open up -->
+            </div>
+            <div class="today-lists">
+                <button class="link-btn" type="button" title="Today">
+                    Today
+                </button>
+                <!-- For navigation to Today Todo Lists -->
+            </div>
+            <div class="upcoming-lists">
+                <button class="link-btn" type="button" title="Upcoming">
+                    Upcoming
+                </button>
+                <!-- For navigation to Not Today Todo Lists -->
+            </div>
+            <div class="my-projects">
+                <button class="link-btn" type="button" title="My Projects">
+                    My Projects
+                </button>
+                <button class="new-project-btn circle-btn" type="button" title="New Project">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+                <!-- Newly created projects go here -->
+            </div>
+        </div>
+        <footer>
+            <input type="checkbox" name="theme-switch">
+        </footer>
+    </aside>
+    <main>
+        <h2 class="todo-list-title">Main Page</h2>
+        <div class="todo-lists">
+            <!-- Lists Go here -->
+        </div>
+
+    </main>
+</body>
+</html>
