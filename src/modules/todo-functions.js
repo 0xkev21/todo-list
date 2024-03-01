@@ -22,5 +22,8 @@ function changeNotes (todo, newNotes) {
     todo.notes = newNotes;
 }
 
+function deleteItem (array, index) {
+    return array.splice(index, 1);
+}
 
-export default {changeTitle, changeDescription, changeState, changePriority, changeDueDate, changeNotes};
+export default {changeTitle, changeDescription, changeState, changePriority, changeDueDate, changeNotes, deleteItem};

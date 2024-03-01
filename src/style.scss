@@ -1,17 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
-
-// Variables
-$bg-red: #fd857b;
-$bg-yellow: #F7D060;
-$bg-green: #98D8AA;
-$bg-primary: #b098df;
-$color-bg: rgb(235, 235, 235);
-
-$color-red: #3d120e;
-$color-yellow: #57481f;
-$color-green: #163f21;
-$color-primary: #251643;
-$color-text: rgb(18, 18, 18);
+@import 'variables';
 
 html[data-theme="light"] {
     --text-color-red: #{$color-red};
@@ -25,6 +13,8 @@ html[data-theme="light"] {
     --bg-color-green: #{$bg-green};
     --bg-color-primary: #{$bg-primary};
     --bg-color: #{$color-bg};
+
+    --card-color: #{$card-color-light};
 }
 
 html[data-theme="dark"] {
@@ -39,13 +29,15 @@ html[data-theme="dark"] {
     --bg-color-green: #{$color-green};
     --bg-color-primary: #{$color-primary};
     --bg-color: #{$color-text};
+
+    --card-color: #{$card-color-dark};
 }
 
 body {
     background: var(--bg-color);
     color: var(--text-color);
     font-family: 'Noto Sans Symbols';
-    line-height: 1.5;
+    line-height: 2;
 }
 
 *, *::before, *::after {
@@ -144,11 +136,13 @@ body {
 .fill-btn {
     width: 100%;
     height: 3rem;
+    justify-content: flex-start;
 }
 .link-btn {
     width: 100%;
     background-color: transparent;
     height: 3rem;
+    justify-content: flex-start;
 }
 .link-btn:hover {
     background-color:#9781c251;
@@ -190,5 +184,20 @@ aside {
 }
 
 main {
-    
+    h2 {
+        margin-bottom: 1.5rem;
+    }
+
+    .todo-lists {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .todo-card-container {
+        width: min(300px, 30%);
+        background-color: var(--card-color);
+        padding: 0.5rem;
+        border-radius: 1rem;
+    }
 }

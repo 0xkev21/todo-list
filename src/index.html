@@ -18,7 +18,7 @@
             </div>
             <button type="button" class="side-bar-toggle circle-btn" title="Toggle Sidebar">
                 <span class="material-symbols-outlined">
-                    view_sidebar
+                    side_navigation
                 </span>
             </button>
         </nav>
@@ -33,35 +33,39 @@
             </div>
             <div class="main-lists">
                 <button class="link-btn" type="button" title="Home">
+                    <span class="material-symbols-outlined">home</span>
                     Home
                 </button>
                 <!-- Default Lists to show when the page open up -->
             </div>
             <div class="today-lists">
                 <button class="link-btn" type="button" title="Today">
+                    <span class="material-symbols-outlined">today</span>
                     Today
                 </button>
                 <!-- For navigation to Today Todo Lists -->
             </div>
             <div class="upcoming-lists">
                 <button class="link-btn" type="button" title="Upcoming">
+                    <span class="material-symbols-outlined">event_upcoming</span>
                     Upcoming
                 </button>
                 <!-- For navigation to Not Today Todo Lists -->
             </div>
             <div class="my-projects">
                 <button class="link-btn" type="button" title="My Projects">
+                    <span class="material-symbols-outlined">expand_more</span>
                     My Projects
                 </button>
                 <button class="new-project-btn circle-btn" type="button" title="New Project">
                     <span class="material-symbols-outlined">add</span>
                 </button>
-                <!-- Newly created projects go here -->
+                <div class="my-projects-container">
+                    <!-- Newly created projects go here -->
+                </div>
             </div>
         </div>
-        <footer>
-            <input type="checkbox" name="theme-switch">
-        </footer>
+        <input type="checkbox" name="theme-switch" class="circle-btn">
     </aside>
     <main>
         <h2 class="todo-list-title">Main Page</h2>
