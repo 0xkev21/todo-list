@@ -24,7 +24,7 @@
         </nav>
         <div class="projects">
             <div class="new-project-button-container">
-                <button class="new-project-button fill-btn" title="Add new Project">
+                <button type="button" class="open-todo-form-btn fill-btn" title="Add new Project">
                     <span class="material-symbols-outlined">
                         add
                     </span>
@@ -57,7 +57,7 @@
                     <span class="material-symbols-outlined">expand_more</span>
                     My Projects
                 </button>
-                <button class="new-project-btn circle-btn" type="button" title="New Project">
+                <button class="open-project-form-btn circle-btn" type="button" title="New Project">
                     <span class="material-symbols-outlined">add</span>
                 </button>
                 <div class="my-projects-container">
@@ -107,13 +107,13 @@
             <div class="input-container">
                 <label for="project">Choose Project:</label>
                 <select name="project" id="project">
-                    <option value="1">Home</option>
+                    <option value="0" selected>Home</option>
                 </select>
                 <button class="btn-circle" type="button" title="Add New Project">
                     <span class="material-symbols-outlined">add</span>
                 </button>
             </div>
-            <button type="submit">Add Todo</button>
+            <button type="submit" id="add-todo-btn">Add Todo</button>
         </form>
     </div>
 </body>

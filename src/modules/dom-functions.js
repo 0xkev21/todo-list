@@ -13,7 +13,7 @@ function createTodo (todo, index) {
             ${sanitize(todo.description)}
         </p>
         <div class="done">
-            <span class="material-symbols-outlined"></span>
+            <span class="material-symbols-outlined">${todo.done ? "checked_circle" : "radio_button_unchecked"}</span>
         </div>
     `;
     item.innerHTML = HTMLSnippet;
