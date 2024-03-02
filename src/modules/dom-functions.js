@@ -1,5 +1,6 @@
 import sanitize from './sanitizer.js';
 
+
 function createTodo (todo, index) {
     const item = document.createElement('div');
     item.classList.add('todo-card-container');
@@ -20,23 +21,27 @@ function createTodo (todo, index) {
     return item;
 };
 
-function updateTodoList(list) {
+function updateTodoList(array, index) {
     const todoListsDiv = document.querySelector('.todo-lists');
     todoListsDiv.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    for(let i = 0; i < list.length; i++) {
-        fragment.appendChild(createTodo(list[i], i));
+    for(let i = 0; i < array[index].list.length; i++) {
+        fragment.appendChild(createTodo(array[index].list[i], i));
     }
     todoListsDiv.appendChild(fragment);
 }
 
 function createProject(project, index) {
-    const newProject = document.createElement('div');
-    const HTMLSnippet = `
-        <button class="link-btn project-btn" type="button" data-index="${index}" onclick="displayTodoLists(${index})">${sanitize(project.name)}</button>
-    `;
-    newProject.innerHTML = HTMLSnippet;
-    return newProject;
+    // const newProject = document.createElement('div');
+    // const HTMLSnippet = `
+    //     <button class="link-btn project-btn" type="button" data-index="${index}" onclick="displayTodoLists(${index})">${sanitize(project.name)}</button>
+    // `;
+    const button = document.createElement('button');
+    button.classList.add('link-btn', 'project-btn');
+    button.setAttribute('type', 'button');
+    button.setAttribute('data-index', index);
+    button.textContent = project.name;
+    return button;
 }
 
 export default {createTodo, createProject, updateTodoList};

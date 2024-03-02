@@ -44,28 +44,25 @@ function addProject (name, priority) {
     const newProject = new ProjectMaker(name, priority);
     const index = projects.length;
     projects.push(newProject);
-    projectsDiv.appendChild(DomFunctions.createProject(newProject, index));
+    const newProjectBtn = DomFunctions.createProject(newProject, index);
+    newProjectBtn.addEventListener('click', DomFunctions.updateTodoList(projects, index));
+    projectsDiv.appendChild(newProjectBtn);
 }
 
 // Remove Todo Item
 function removeTodoItem (projectIndex, index) {
     TodoFunctions.deleteItem(projects[projectIndex].list, index);
     if(currentProjectPage !== 0) {
-        displayTodoLists(projectIndex);
+        DomFunctions.updateTodoList(projects, index);
     } else {
-        displayTodoLists(0);
+        DomFunctions.updateTodoList(projects, 0);
     }
 }
 
 // Remove Project
 function removeProject (index) {
     TodoFunctions.deleteItem(projects, index);
-    displayTodoLists(0);
-}
-
-// Update todo list dom
-function displayTodoLists(index) {
-    DomFunctions.updateTodoList(projects[index].list);
+    DomFunctions.updateTodoList(projects, 0);
 }
 
 //First Project
@@ -79,16 +76,16 @@ addTodoItem("Repeat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", fa
 
 
 // Initial display of to-do items for the first project
-displayTodoLists(1);
+DomFunctions.updateTodoList(projects, 0);
 
 // Test Removing todo
 removeProject(1);
 
 // Event Listeners
 openTodoFormBtn.addEventListener('click', () => {
-    todoFormContainer.style.display = "block";
-    todoFormContainer.addEventListener('click', (e) => {
-        todoFormContainer.style.display = "none";
+    todoFormContainer.classList.add('show');
+    todoFormContainer.addEventListener('click', () => {
+        todoFormContainer.classList.remove('show');
     });
 });
 todoForm.addEventListener('click', (e) => {e.stopPropagation()});
