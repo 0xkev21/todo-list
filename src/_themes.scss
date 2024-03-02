@@ -1,0 +1,31 @@
+html[data-theme="light"] {
+    --text-color-red: #{$color-red};
+    --text-color-yellow: #{$color-yellow};
+    --text-color-green: #{$color-green};
+    --text-color-primary: #{$color-primary};
+    --text-color: #{$color-text};
+
+    --bg-color-red: #{$bg-red};
+    --bg-color-yellow: #{$bg-yellow};
+    --bg-color-green: #{$bg-green};
+    --bg-color-primary: #{$bg-primary};
+    --bg-color: #{$color-bg};
+
+    --card-color: #{$card-color-light};
+}
+
+html[data-theme="dark"] {
+    --text-color-red: #{$bg-red};
+    --text-color-yellow: #{$bg-yellow};
+    --text-color-green: #{$bg-green};
+    --text-color-primary: #{$bg-primary};
+    --text-color: #{$color-bg};
+
+    --bg-color-red: #{$color-red};
+    --bg-color-yellow: #{$color-yellow};
+    --bg-color-green: #{$color-green};
+    --bg-color-primary: #{$color-primary};
+    --bg-color: #{$color-text};
+
+    --card-color: #{$card-color-dark};
+}

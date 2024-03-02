@@ -1,37 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
 @import 'variables';
-
-html[data-theme="light"] {
-    --text-color-red: #{$color-red};
-    --text-color-yellow: #{$color-yellow};
-    --text-color-green: #{$color-green};
-    --text-color-primary: #{$color-primary};
-    --text-color: #{$color-text};
-
-    --bg-color-red: #{$bg-red};
-    --bg-color-yellow: #{$bg-yellow};
-    --bg-color-green: #{$bg-green};
-    --bg-color-primary: #{$bg-primary};
-    --bg-color: #{$color-bg};
-
-    --card-color: #{$card-color-light};
-}
-
-html[data-theme="dark"] {
-    --text-color-red: #{$bg-red};
-    --text-color-yellow: #{$bg-yellow};
-    --text-color-green: #{$bg-green};
-    --text-color-primary: #{$bg-primary};
-    --text-color: #{$color-bg};
-
-    --bg-color-red: #{$color-red};
-    --bg-color-yellow: #{$color-yellow};
-    --bg-color-green: #{$color-green};
-    --bg-color-primary: #{$color-primary};
-    --bg-color: #{$color-text};
-
-    --card-color: #{$card-color-dark};
-}
+@import 'themes';
 
 body {
     background: var(--bg-color);
@@ -115,16 +84,16 @@ body {
         overflow-y: scroll;
         height: 100vh;
     }
+}
 
-    aside::-webkit-scrollbar, main::-webkit-scrollbar {
-        width: 0.5rem;
-        background-color: var(--bg-color-primary);
-    }
+aside::-webkit-scrollbar, main::-webkit-scrollbar, textarea::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: var(--bg-color-primary);
+}
 
-    aside::-webkit-scrollbar-thumb, main::-webkit-scrollbar-thumb {
-        background-color: var(--text-color-primary);
-        border-radius: 20px;
-    }
+aside::-webkit-scrollbar-thumb, main::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
+    background-color: var(--text-color-primary);
+    border-radius: 20px;
 }
 
 .circle-btn {
@@ -200,4 +169,82 @@ main {
         padding: 0.5rem;
         border-radius: 1rem;
     }
+}
+
+.form-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    pointer-events: none;
+
+    .new-todo-form {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: min(90vw, 500px);
+        height: 500px;
+        background-color: var(--card-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        flex-direction: column;
+        padding: 2rem;
+        border-radius: 1.5rem;
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 1.5rem;
+
+            label {
+                flex-basis: 7.5rem;
+                flex-grow: 0;
+                flex-shrink: 0;
+            }
+
+            input, textarea, select {
+                flex-grow: 1;
+            }
+
+            input::-webkit-datetime-edit {
+                text-transform: uppercase;
+            }
+
+            select {
+                border: none;
+            }
+
+            .btn-circle {
+                flex: 0;
+                width: 2rem;
+                height: 2rem;
+            }
+
+            textarea {
+                min-height: 10ch;
+                resize: none;
+            }
+            
+            .due-date-inputs {
+                display: flex;
+                width: 100%;
+                gap: .5rem;
+
+                input {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
+input, textarea, select {
+    background-color: var(--bg-color-primary);
+    color: var(--text-color-primary);
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    font-family: 'Noto Sans Symbols';
+    padding: 0.25rem .5rem;
 }

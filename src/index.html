@@ -72,7 +72,49 @@
         <div class="todo-lists">
             <!-- Lists Go here -->
         </div>
-
     </main>
+
+    <!-- Todo Form -->
+    <div class="form-container">
+        <form class="new-todo-form">
+            <div class="input-container">
+                <label for="title">Title: *</label>
+                <input type="text" name="title" id="title" required maxlength="32">
+            </div>
+            <div class="input-container">
+                <label for="description">Description: *</label>
+                <input type="text" name="description" id="description"  required maxlength="48">
+            </div>
+            <div class="input-container">
+                <label for="date">Due Date:</label>
+                <div class="due-date-inputs">
+                    <input type="date" id="date" name="date">
+                    <input type="time" id="time" name="time" title="Time">
+                </div>
+            </div>
+            <div class="input-container">
+                <label for="priority">Set Priority:</label>
+                <select name="priority" id="priority">
+                    <option value="1">First</option>
+                    <option value="2">Second</option>
+                    <option value="3">Third</option>
+                </select>
+            </div>
+            <div class="input-container">
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes"></textarea>
+            </div>
+            <div class="input-container">
+                <label for="project">Choose Project:</label>
+                <select name="project" id="project">
+                    <option value="1">Home</option>
+                </select>
+                <button class="btn-circle" type="button" title="Add New Project">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+            </div>
+            <button type="submit">Add Todo</button>
+        </form>
+    </div>
 </body>
 </html>
