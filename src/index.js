@@ -1,6 +1,6 @@
 import './style.scss';
 import 'material-symbols/outlined.css';
-import './modules/theme';
+import './modules/theme&sidebar';
 import TodoMaker from './modules/todo-maker';
 import ProjectMaker from './modules/project-maker';
 import TodoFunctions from './modules/todo-functions';
@@ -25,6 +25,9 @@ const todoProject = document.querySelector('#project');
 const openTodoFormBtn = document.querySelector('.open-todo-form-btn');
 const addTodoBtn = document.querySelector('#add-todo-btn');
 
+// Project Buttons
+const linkBtns = document.querySelectorAll('.link-btn');
+
 const projects = [
     new ProjectMaker("Home", null),
 ];
@@ -45,7 +48,9 @@ function addProject (name, priority) {
     const index = projects.length;
     projects.push(newProject);
     const newProjectBtn = DomFunctions.createProject(newProject, index);
-    newProjectBtn.addEventListener('click', DomFunctions.updateTodoList(projects, index));
+    newProjectBtn.addEventListener('click', () => {
+        DomFunctions.updateTodoList(projects, index)
+    });
     projectsDiv.appendChild(newProjectBtn);
 }
 
@@ -74,12 +79,10 @@ addTodoItem("Eat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false
 addTodoItem("Sleep", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 1);
 addTodoItem("Repeat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 1);
 
+console.log(projects);
 
 // Initial display of to-do items for the first project
 DomFunctions.updateTodoList(projects, 0);
-
-// Test Removing todo
-removeProject(1);
 
 // Event Listeners
 openTodoFormBtn.addEventListener('click', () => {
@@ -90,9 +93,29 @@ openTodoFormBtn.addEventListener('click', () => {
 });
 todoForm.addEventListener('click', (e) => {e.stopPropagation()});
 
+// Add todo item on form submit
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const dueDate = todoDate.value + "T" + todoTime.value;
     console.log(todoProject.value);
     addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
 })
+
+linkBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+        navigateLists(e);
+    });
+});
+
+function navigateLists(e) {
+    switch(e.target.title) {
+        case "Home":
+            DomFunctions.updateTodoList(projects, 0);
+            console.log("Home is clicked");
+            break;
+        case "My Projects":
+            console.log("My Projects is clicked");
+            projectsDiv.classList.toggle('show');
+            break;
+    }
+}

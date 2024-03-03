@@ -118,6 +118,9 @@ aside::-webkit-scrollbar-thumb, main::-webkit-scrollbar-thumb, textarea::-webkit
 }
 
 aside {
+    position: relative;
+    left: -300px;
+
     .profile {
         display: flex;
         align-items: center;
@@ -129,9 +132,11 @@ aside {
     }
 
     .side-bar-toggle {
-        position: absolute;
+        position: fixed;
+        cursor: pointer;
         top: 1rem;
-        right: 1rem;
+        left: 1rem;
+        z-index: 1;
     }
 
     .projects {
@@ -145,15 +150,35 @@ aside {
         position: relative;
     }
 
+    .my-projects-container {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .my-projects-container.show {
+        display: flex;
+    }
+
     .open-project-form-btn {
         position: absolute;
         top: 0;
         right: 0;
     }
 }
+.show-side-bar aside {
+    left: 0;
+}
+.show-side-bar .side-bar-toggle {
+    left: calc(300px - 4rem);
+}
 
 main {
+    position: relative;
+    left: -300px;
+    width: 100vw;
+
     h2 {
+        margin-top: 4rem;
         margin-bottom: 1.5rem;
     }
 
@@ -169,6 +194,9 @@ main {
         padding: 0.5rem;
         border-radius: 1rem;
     }
+}
+.show-side-bar main {
+    left: 0;
 }
 
 .form-container.show {

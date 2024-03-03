@@ -25,6 +25,8 @@ function updateTodoList(array, index) {
     const todoListsDiv = document.querySelector('.todo-lists');
     todoListsDiv.innerHTML = '';
     const fragment = document.createDocumentFragment();
+    console.log(array);
+    console.log(index);
     for(let i = 0; i < array[index].list.length; i++) {
         fragment.appendChild(createTodo(array[index].list[i], i));
     }
