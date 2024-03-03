@@ -23,6 +23,7 @@ themeSwitchButton.addEventListener('change',(e) => {
     }
 });
 
+document.body.classList.add('show-side-bar');
 sidebarBtn.addEventListener('click', () => {
     console.log("test");
     document.body.classList.toggle('show-side-bar');

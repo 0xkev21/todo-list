@@ -1,5 +1,7 @@
 import sanitize from './sanitizer.js';
 
+const projectsDiv = document.querySelector('.my-projects-container');
+const todoProject = document.querySelector('#project');
 
 function createTodo (todo, index) {
     const item = document.createElement('div');
@@ -25,8 +27,6 @@ function updateTodoList(array, index) {
     const todoListsDiv = document.querySelector('.todo-lists');
     todoListsDiv.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    console.log(array);
-    console.log(index);
     for(let i = 0; i < array[index].list.length; i++) {
         fragment.appendChild(createTodo(array[index].list[i], i));
     }
@@ -34,16 +34,30 @@ function updateTodoList(array, index) {
 }
 
 function createProject(project, index) {
-    // const newProject = document.createElement('div');
-    // const HTMLSnippet = `
-    //     <button class="link-btn project-btn" type="button" data-index="${index}" onclick="displayTodoLists(${index})">${sanitize(project.name)}</button>
-    // `;
     const button = document.createElement('button');
     button.classList.add('link-btn', 'project-btn');
     button.setAttribute('type', 'button');
     button.setAttribute('data-index', index);
     button.textContent = project.name;
-    return button;
+
+    const option = document.createElement('option');
+    option.setAttribute('value', index);
+    option.textContent = project.name;
+
+    return {button: button, option: option};
 }
 
-export default {createTodo, createProject, updateTodoList};
+function updateProjectList(array) {
+    projectsDiv.innerHTML = '';
+    todoProject.innerHTML = '<option value="0" selected>Home</option>';
+    for(let i = 1; i < array.length; i++) {
+        const projectObj = createProject(array[i], i);
+        projectObj.button.addEventListener('click', () => {
+            updateTodoList(array, i);
+        });
+        projectsDiv.appendChild(projectObj.button);
+        todoProject.appendChild(projectObj.option);
+    }
+}
+
+export default {createTodo, createProject, updateTodoList, updateProjectList};

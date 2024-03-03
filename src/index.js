@@ -45,13 +45,14 @@ function addTodoItem (title, description, dueDate, priority, notes, done, projec
 // Add Project
 function addProject (name, priority) {
     const newProject = new ProjectMaker(name, priority);
-    const index = projects.length;
+    // const index = projects.length;
     projects.push(newProject);
-    const newProjectBtn = DomFunctions.createProject(newProject, index);
-    newProjectBtn.addEventListener('click', () => {
-        DomFunctions.updateTodoList(projects, index)
-    });
-    projectsDiv.appendChild(newProjectBtn);
+    DomFunctions.updateProjectList(projects);
+    // const newProjectBtn = DomFunctions.createProject(newProject, index);
+    // newProjectBtn.addEventListener('click', () => {
+    //     DomFunctions.updateTodoList(projects, index)
+    // });
+    // projectsDiv.appendChild(newProjectBtn);
 }
 
 // Remove Todo Item
@@ -70,12 +71,16 @@ function removeProject (index) {
     DomFunctions.updateTodoList(projects, 0);
 }
 
-//First Project
-addProject("My Project 1", 1);
-
-// Test Adding todo
 addTodoItem("Code", "<img src=''>", "2024-3-1", 1, "blah blah blah", false, 0);
 addTodoItem("Eat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 0);
+
+//First Project
+addProject("My Project 1", 1);
+// Second Project
+setTimeout(() => {
+    addProject("My Project 2", 2)}, 1000);
+
+// Test Adding todo
 addTodoItem("Sleep", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 1);
 addTodoItem("Repeat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 1);
 
@@ -119,3 +124,5 @@ function navigateLists(e) {
             break;
     }
 }
+
+export default projects;
