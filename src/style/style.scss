@@ -1,74 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
 @import 'variables';
 @import 'themes';
+@import 'mixins';
+@import 'reset';
 
 body {
     background: var(--bg-color);
     color: var(--text-color);
     font-family: 'Noto Sans Symbols';
     line-height: 2;
-}
-
-*, *::before, *::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    border: none;
-    border: 1px solid red;
-}
-
-@mixin button($color, $corner) {
-    padding: 0.5rem 1rem;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-
-    @if $color == red {
-        background-color: var(--bg-color-red);
-        color: var(--text-color-red);
-    }
-    @else if $color == yellow {
-        background-color: var(--bg-color-yellow);
-        color: var(--text-color-yellow);
-    }
-    @else if $color == green {
-        background-color: var(--bg-color-green);
-        color: var(--text-color-green);
-    }
-    @else {
-        background-color: var(--bg-color-primary);
-        color: var(--text-color-primary);
-    }
-
-    @if $corner == rounded {
-        border-radius: 0.8rem;
-    }
-    @else if $corner == circle {
-        border-radius: 100px;
-    }
-    @else {
-        border-radius: 0;
-    }
-}
-
-button.red {
-    @include button(red, circle);
-}
-button.yellow {
-    @include button(yellow, circle);
-}
-button.green {
-    @include button(green, circle);
-}
-button {
-    @include button(primary, circle);
-}
-button:hover {
-    filter: brightness(1.3);
 }
 
 body {
@@ -153,7 +93,7 @@ aside {
     .my-projects-container {
         display: none;
         flex-direction: column;
-        gap: 1rem;
+        gap: .25rem;
     }
     .my-projects-container.show {
         display: flex;
@@ -197,6 +137,7 @@ main {
 }
 .show-side-bar main {
     left: 0;
+    width: auto;
 }
 
 .form-container.show {

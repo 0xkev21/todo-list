@@ -1,0 +1,53 @@
+@mixin button($color, $corner) {
+    padding: 0.5rem 1rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+
+    @if $color == red {
+        background-color: var(--bg-color-red);
+        color: var(--text-color-red);
+    }
+    @else if $color == yellow {
+        background-color: var(--bg-color-yellow);
+        color: var(--text-color-yellow);
+    }
+    @else if $color == green {
+        background-color: var(--bg-color-green);
+        color: var(--text-color-green);
+    }
+    @else {
+        background-color: var(--bg-color-primary);
+        color: var(--text-color-primary);
+    }
+
+    @if $corner == rounded {
+        border-radius: 0.8rem;
+    }
+    @else if $corner == circle {
+        border-radius: 100px;
+    }
+    @else {
+        border-radius: 0;
+    }
+}
+
+button.red {
+    @include button(red, circle);
+}
+button.yellow {
+    @include button(yellow, circle);
+}
+button.green {
+    @include button(green, circle);
+}
+button {
+    @include button(primary, circle);
+}
+button:hover {
+    filter: brightness(1.1);
+}

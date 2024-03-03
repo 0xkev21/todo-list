@@ -12,7 +12,7 @@ if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
     themeSwitchButton.setAttribute('title', "Dark Mode");
 }
 
-// Toggle on Click
+// Toggle Theme on Click
 themeSwitchButton.addEventListener('change',(e) => {
     if(e.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -23,6 +23,7 @@ themeSwitchButton.addEventListener('change',(e) => {
     }
 });
 
+// Toggle Sidebar
 document.body.classList.add('show-side-bar');
 sidebarBtn.addEventListener('click', () => {
     console.log("test");
