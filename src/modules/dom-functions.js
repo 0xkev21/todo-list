@@ -6,20 +6,21 @@ const todoListTitle = document.querySelector('.todo-list-title');
 
 // Todo DOM
 function createTodo (todo, index) {
-    const fragment = document.createDocumentFragment();
     const item = document.createElement('div');
     item.classList.add('todo-card-container');
-    item.setAttribute('data-index', index);
-    
+    item.setAttribute('data-index', index);   
     const HTMLSnippet = `
         <h4 class="todo-title">
         ${sanitize(todo.title)}
         </h4>
-        <p class="todo-description">
-            ${sanitize(todo.description)}
-        </p>
-        <div class="done">
-            <span class="material-symbols-outlined">${todo.done ? "checked_circle" : "radio_button_unchecked"}</span>
+        <div class="todo-btns-container">
+            <button class="todo-done btn-circle"><span class="material-symbols-outlined">${todo.done ? "check_circle" : "radio_button_unchecked"}</span></button>
+            <button class="todo-details btn-circle"><span class="material-symbols-outlined">summarize</span></button>
+        </div>
+        <div class="description-container">
+            <p class="todo-description">
+                ${sanitize(todo.description)}
+            </p>
         </div>
     `;
     item.innerHTML = HTMLSnippet;
@@ -56,9 +57,6 @@ function updateProjectList(array) {
     todoProject.innerHTML = '<option value="0" selected>Home</option>';
     for(let i = 1; i < array.length; i++) {
         const projectObj = createProject(array[i], i);
-        projectObj.button.addEventListener('click', () => {
-            updateTodoList(array, i);
-        });
         projectsDiv.appendChild(projectObj.button);
         todoProject.appendChild(projectObj.option);
     }
