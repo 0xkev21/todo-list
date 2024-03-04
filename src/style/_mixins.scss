@@ -7,6 +7,7 @@
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
+    width: auto;
 
     @if $color == red {
         background-color: var(--bg-color-red);
@@ -30,6 +31,7 @@
     }
     @else if $corner == circle {
         border-radius: 100px;
+        aspect-ratio: 1;
     }
     @else {
         border-radius: 0;
@@ -46,8 +48,12 @@ button.green {
     @include button(green, circle);
 }
 button {
+    @include button(primary, rounded);
+}
+button.btn-circle {
     @include button(primary, circle);
 }
+
 button:hover {
     filter: brightness(1.1);
 }

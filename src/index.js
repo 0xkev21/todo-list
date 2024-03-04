@@ -9,6 +9,7 @@ import DomFunctions from './modules/dom-functions';
 // DOM Elements
 const todoListDiv = document.querySelector('.todo-lists');
 const projectsDiv = document.querySelector('.my-projects-container');
+const todoDetailsDiv = document.querySelector('.details-card-container');
 // Inputs
 const todoFormContainer = document.querySelector('.form-container');
 const todoForm = document.querySelector('.new-todo-form');
@@ -100,9 +101,15 @@ myProjectsBtn.addEventListener('click', () => {
     projectsDiv.classList.toggle('show');
 });
 
+function showTodoDetails(index) {
+    const currentTodoIndex = index;
+    todoDetailsDiv.classList.add('show');
+}
+
 // Refresh Event Listeners
 function refreshEventListeners() {
     const todoDoneBtns = document.querySelectorAll('.todo-done');
+    const todoDetailsBtns = document.querySelectorAll('.todo-details');
     const projectBtns = document.querySelectorAll('.project-btn');
 
     projectBtns.forEach((btn,index) => {
@@ -111,16 +118,20 @@ function refreshEventListeners() {
             currentProjectPage = index + 1;
             refreshEventListeners();
         });
-    })
+    });
 
     todoDoneBtns.forEach(doneBtn => {
         doneBtn.addEventListener('click', () => {
             const index = + doneBtn.parentNode.parentNode.getAttribute('data-index');
-            console.log(index);
             updateDoneStatus(currentProjectPage, index);
-            console.log(projects);
         });
     });
+    todoDetailsBtns.forEach(detailsBtn => {
+        detailsBtn.addEventListener('click', () => {
+            const index = + detailsBtn.parentNode.parentNode.getAttribute('data-index');
+            showTodoDetails(index);
+        })
+    })
 }
 
 

@@ -56,6 +56,14 @@ aside::-webkit-scrollbar-thumb, main::-webkit-scrollbar-thumb, textarea::-webkit
 .link-btn:hover {
     background-color:#9781c251;
 }
+input, textarea, select {
+    background-color: var(--bg-color-primary);
+    color: var(--text-color-primary);
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    font-family: 'Noto Sans Symbols';
+    padding: 0.25rem .5rem;
+}
 
 aside {
     position: relative;
@@ -119,21 +127,34 @@ main {
     
 
     h2 {
-        margin-top: 4rem;
-        margin-bottom: 1.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
     }
 
     .todo-lists {
-        display: flex;
+        display: grid;
         align-items: center;
         gap: 1rem;
+        padding: 1rem 6rem;
     }
 
     .todo-card-container {
-        width: min(300px, 30%);
+        width: 100%;
         background-color: var(--card-color);
-        padding: 0.5rem;
+        padding: 0.5rem 2rem;
         border-radius: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .todo-card-container[data-done="true"] {
+        opacity: 0.5;
+    }
+
+    .todo-btns-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 }
 .show-side-bar main {
@@ -144,7 +165,6 @@ main {
 .form-container.show {
     display: block;
 }
-
 .form-container {
     width: 100vw;
     height: 100vh;
@@ -187,8 +207,15 @@ main {
                 text-transform: uppercase;
             }
 
+            .todo-project-container {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                width: 100%;
+            }
+
             select {
-                border: none;
+                flex-grow: 1;
             }
 
             .btn-circle {
@@ -216,11 +243,27 @@ main {
     }
 }
 
-input, textarea, select {
-    background-color: var(--bg-color-primary);
-    color: var(--text-color-primary);
-    font-size: 0.9rem;
-    border-radius: 0.5rem;
-    font-family: 'Noto Sans Symbols';
-    padding: 0.25rem .5rem;
+
+.details-card-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    place-items: center;
+    display: none;
+
+    .details-card {
+        padding: 1.5rem;
+        display: flex;
+        width: min(90vw, 500px);
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        background-color: var(--card-color);
+        border-radius: 1rem;
+        border: 0.2rem solid var(--bg-color-primary);
+    }
+}
+.details-card-container.show {
+    display: grid;
 }

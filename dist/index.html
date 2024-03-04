@@ -95,9 +95,9 @@
             <div class="input-container">
                 <label for="priority">Set Priority:</label>
                 <select name="priority" id="priority">
-                    <option value="1">First</option>
-                    <option value="2">Second</option>
-                    <option value="3">Third</option>
+                    <option value="3">Important</option>
+                    <option value="2" selected>Normal</option>
+                    <option value="1">Not Important</option>
                 </select>
             </div>
             <div class="input-container">
@@ -106,15 +106,36 @@
             </div>
             <div class="input-container">
                 <label for="project">Choose Project:</label>
-                <select name="project" id="project">
-                    <option value="0" selected>Home</option>
-                </select>
-                <button class="btn-circle" type="button" title="Add New Project">
-                    <span class="material-symbols-outlined">add</span>
+                <div class="todo-project-container">
+                    <select name="project" id="project">
+                        <option value="0" selected>Home</option>
+                    </select>
+                    <button class="btn-circle" type="button" title="Add New Project">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn-rounded" id="add-todo-btn">Add Todo</button>
+        </form>
+    </div>
+
+    <div class="details-card-container">
+        <div class="details-card">
+            <h3 class="det-todo-title">Code</h3>
+            <p class="det-todo-description">just code blah blah blah</p>
+            <p class="det-todo-duedate">Due Date: <span>24-3-29</span></p>
+            <p class="det-todo-priority">Priority: <span>***</span></p>
+            <p class="det-todo-notes">blah blah blah blah blah</p>
+            
+            <div class="det-todo-btns-container">
+                <button type="button" class="todo-edit-btn btn-circle" title="Edit">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+                <button type="button" class="todo-del-btn btn-circle" title="Delete">
+                    <span class="material-symbols-outlined">delete</span>
                 </button>
             </div>
-            <button type="submit" id="add-todo-btn">Add Todo</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>
