@@ -4,11 +4,18 @@ const projectsDiv = document.querySelector('.my-projects-container');
 const todoProject = document.querySelector('#project');
 const todoListTitle = document.querySelector('.todo-list-title');
 
+const todoTitle = document.querySelector('.det-todo-title');
+const todoDescription = document.querySelector('.det-todo-description');
+const todoDuedate = document.querySelector('.det-todo-duedate span');
+const todoPriority = document.querySelector('.det-todo-priority span');
+const todoNotes = document.querySelector('.det-todo-notes');
+
 // Todo DOM
 function createTodo (todo, index) {
     const item = document.createElement('div');
     item.classList.add('todo-card-container');
     item.setAttribute('data-index', index);
+    item.setAttribute('data-project', todo.project);
     item.setAttribute('data-done', todo.done);
     const HTMLSnippet = `
         <div class="title-description-container">
@@ -65,12 +72,6 @@ function updateProjectList(array) {
 
 // Todo Details Page
 function displayTodoDetails(todo) {
-    const todoTitle = document.querySelector('det-todo-title');
-    const todoDescription = document.querySelector('det-todo-description');
-    const todoDuedate = document.querySelector('det-todo-duedate span');
-    const todoPriority = document.querySelector('det-todo-priority span');
-    const todoNotes = document.querySelector('det-todo-notes');
-    const todoEditBtn = document.querySelector('.todo-edit-btn');
 
     todoTitle.textContent = todo.title;
     todoDescription.textContent = todo.description;
