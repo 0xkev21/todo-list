@@ -17,7 +17,7 @@ const todoFormContainer = document.querySelector('.form-container');
 const todoForm = document.querySelector('.new-todo-form');
 const projectFormContainer = document.querySelector('.project-form-container');
 const projectForm = document.querySelector('.project-form');
-
+// Todo Inputs
 const todoTitle = document.querySelector('#title');
 const todoDescription = document.querySelector('#description');
 const todoDate = document.querySelector('#date');
@@ -25,11 +25,16 @@ const todoTime = document.querySelector('#time');
 const todoPriority = document.querySelector('#priority');
 const todoNotes = document.querySelector('#notes');
 const todoProject = document.querySelector('#project');
+// Project Inputs
+const projectTitle = document.querySelector('#project-title');
+const projectPriority = document.querySelector('#project-priority');
+
 // Add Buttons
 const openTodoFormBtn = document.querySelector('.open-todo-form-btn');
 const addTodoBtn = document.querySelector('#add-todo-btn');
-const openProjectFormBtn = document.querySelector('.open-project-form-btn');
+const openProjectFormBtns = document.querySelectorAll('.open-project-form-btn');
 const addProjectBtn = document.querySelector('#add-project-btn');
+
 // Project Buttons
 const homeBtn = document.querySelector('button[title="Home"]');
 const myProjectsBtn = document.querySelector('button[title="My Projects"]');
@@ -44,6 +49,7 @@ function addTodoItem (title, description, dueDate, priority, notes, done, projec
     // const index = projects[project].list.length;
     projects[project].list.push(newTodo);
     DomFunctions.updateTodoList(projects, project);
+    todoFormContainer.classList.remove('show');
     refreshEventListeners();
 }
 
@@ -76,6 +82,9 @@ function addProject (name, priority) {
             refreshEventListeners();
         })
     })
+    projectFormContainer.classList.remove('show');
+    projectsDiv.classList.add('show');
+    DomFunctions.updateTodoList(projects, projects.length - 1);
 }
 
 // Remove Project
@@ -94,12 +103,14 @@ openTodoFormBtn.addEventListener('click', () => {
 todoForm.addEventListener('click', (e) => {e.stopPropagation()});
 
 // Event Listener Project Form Open Up
-openProjectFormBtn.addEventListener('click', () => {
-    projectFormContainer.classList.add('show');
-    projectFormContainer.addEventListener('click', () => {
-        projectFormContainer.classList.remove('show');
+openProjectFormBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+        projectFormContainer.classList.add('show');
+        projectFormContainer.addEventListener('click', () => {
+            projectFormContainer.classList.remove('show');
+        });
     });
-});
+})
 projectForm.addEventListener('click', (e) => {e.stopPropagation()});
 
 // Add todo item on Form submit
@@ -108,6 +119,14 @@ addTodoBtn.addEventListener('click', (e) => {
     const dueDate = todoDate.value + "T" + todoTime.value;
     addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
 });
+
+// Add project on Form submit
+addProjectBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(projectTitle.value && projectPriority.value) {
+        addProject(projectTitle.value, projectPriority.value);
+    }
+})
 
 // Navigate Projects
 homeBtn.addEventListener('click', () => {

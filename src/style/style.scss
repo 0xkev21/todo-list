@@ -170,10 +170,12 @@ main {
     height: 100vh;
     position: absolute;
     display: none;
+    -webkit-backdrop-filter: blur(1px) brightness(0.1);
+    backdrop-filter: blur(1px) brightness(0.1);
+    z-index: 2;
 
     .new-todo-form {
         position: absolute;
-        z-index: 2;
         inset: 0;
         margin: auto;
         width: min(90vw, 500px);
@@ -250,6 +252,9 @@ main {
     position: absolute;
     place-items: center;
     display: none;
+    -webkit-backdrop-filter: blur(1px) brightness(0.1);
+    backdrop-filter: blur(1px) brightness(0.1);
+    z-index: 2;
 
     .details-card {
         padding: 1.5rem;
@@ -289,6 +294,9 @@ main {
     position: absolute;
     place-items: center;
     display: none;
+    z-index: 3;
+    -webkit-backdrop-filter: blur(1px) brightness(0.1);
+    backdrop-filter: blur(1px) brightness(0.1);
 
     .project-form {
         padding: 1.5rem;
