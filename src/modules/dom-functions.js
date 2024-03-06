@@ -1,4 +1,5 @@
 import sanitize from './sanitizer.js';
+import projectFunctions from './project-functions.js';
 
 const projectsDiv = document.querySelector('.my-projects-container');
 const todoProject = document.querySelector('#project');
@@ -35,14 +36,29 @@ function createTodo (todo, index) {
     return item;
 };
 
-function updateTodoList(array, index) {
-    todoListTitle.textContent = array[index].name;
+function updateTodoList(array, index, title) {
     const todoListsDiv = document.querySelector('.todo-lists');
     todoListsDiv.innerHTML = '';
+    todoListTitle.textContent = title;
     const fragment = document.createDocumentFragment();
-    for(let i = 0; i < array[index].list.length; i++) {
-        fragment.appendChild(createTodo(array[index].list[i], i));
+    let todosToDisplay = [];
+    if(index === "allLists") {
+        array.forEach(project => {
+            const todosWithIndices = project.list.map((todo, index) => (
+                {todo, index}
+            ));
+            todosToDisplay = [...todosToDisplay, ...todosWithIndices];
+        })
+    } else {
+        todosToDisplay = [...array[index].list.map((todo, index) => (
+            {todo, index}
+        ))];
     }
+    console.log(todosToDisplay);
+
+    todosToDisplay.forEach(({todo, index}) => {
+        fragment.appendChild(createTodo(todo, index));
+    })
     todoListsDiv.appendChild(fragment);
 }
 

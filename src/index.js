@@ -6,6 +6,7 @@ import ProjectMaker from './modules/project-maker';
 import TodoFunctions from './modules/todo-functions';
 import DomFunctions from './modules/dom-functions';
 import todoFunctions from './modules/todo-functions';
+import projectFunctions from './modules/project-functions';
 
 // DOM Elements
 const todoListDiv = document.querySelector('.todo-lists');
@@ -37,33 +38,43 @@ const addProjectBtn = document.querySelector('#add-project-btn');
 
 // Project Buttons
 const homeBtn = document.querySelector('button[title="Home"]');
+const allListsBtn = document.querySelector('button[title="All Lists"]');
 const myProjectsBtn = document.querySelector('button[title="My Projects"]');
 
 const projects = [
     new ProjectMaker("Home", null),
 ];
+let currentPage;
 
 // Add Todo Item
 function addTodoItem (title, description, dueDate, priority, notes, done, project) {
     const newTodo = new TodoMaker(title, description, dueDate, priority, notes, done, project);
     // const index = projects[project].list.length;
     projects[project].list.push(newTodo);
-    DomFunctions.updateTodoList(projects, project);
+    DomFunctions.updateTodoList(projects, project, projects[project].name);
     todoFormContainer.classList.remove('show');
     refreshEventListeners();
 }
 
 // Changing todo item
-function updateDoneStatus(project, todo) {
-    TodoFunctions.changeState(projects[project].list[todo]);
-    DomFunctions.updateTodoList(projects, project);
+function updateDoneStatus(projectIndex, todo) {
+    TodoFunctions.changeState(projects[projectIndex].list[todo]);
+    if(currentPage === "allLists") {
+        DomFunctions.updateTodoList(projects, 'allLists', 'All Lists');
+    } else {
+        DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
+    }
     refreshEventListeners();
 }
 
 // Remove Todo Item
 function removeTodoItem (projectIndex, index) {
     TodoFunctions.deleteItem(projects[projectIndex].list, index);
-    DomFunctions.updateTodoList(projects, projectIndex);
+    if(currentPage === "allLists") {
+        DomFunctions.updateTodoList(projects, 'allLists', 'All Lists');
+    } else {
+        DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
+    }
     todoDetailsDiv.classList.remove('show');
     refreshEventListeners();
 }
@@ -78,19 +89,20 @@ function addProject (name, priority) {
     projectBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const index = btn.getAttribute('data-index');
-            DomFunctions.updateTodoList(projects, index);
+            currentPage = null;
+            DomFunctions.updateTodoList(projects, index, projects[index].name);
             refreshEventListeners();
         })
     })
     projectFormContainer.classList.remove('show');
     projectsDiv.classList.add('show');
-    DomFunctions.updateTodoList(projects, projects.length - 1);
+    DomFunctions.updateTodoList(projects, projects.length - 1, projects[projects.length -1].name);
 }
 
 // Remove Project
 function removeProject (index) {
     TodoFunctions.deleteItem(projects, index);
-    DomFunctions.updateTodoList(projects, 0);
+    DomFunctions.updateTodoList(projects, 0, projects[0].name);
 }
 
 // Event Listeners Todo Form Open Up
@@ -116,6 +128,7 @@ projectForm.addEventListener('click', (e) => {e.stopPropagation()});
 // Add todo item on Form submit
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    console.log(todoDate.value);
     const dueDate = todoDate.value + "T" + todoTime.value;
     addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
 });
@@ -130,12 +143,18 @@ addProjectBtn.addEventListener('click', (e) => {
 
 // Navigate Projects
 homeBtn.addEventListener('click', () => {
-    DomFunctions.updateTodoList(projects, 0);
+    DomFunctions.updateTodoList(projects, 0, projects[0].name);
     refreshEventListeners();
+    currentPage = null;
 });
 myProjectsBtn.addEventListener('click', () => {
     projectsDiv.classList.toggle('show');
 });
+allListsBtn.addEventListener('click', () => {
+    DomFunctions.updateTodoList(projects, "allLists", "All Lists");
+    currentPage = "allLists";
+    refreshEventListeners();
+})
 
 // Details Container
 function showTodoDetails(projectIndex, index) {
@@ -186,5 +205,21 @@ addTodoItem("Sleep", "coding is beautiful", "2024-3-1", 1, "blah blah blah", fal
 addTodoItem("Repeat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 2);
 
 // Start at Home Page 
-DomFunctions.updateTodoList(projects, 0);
+currentPage = null;
+DomFunctions.updateTodoList(projects, 0, projects[0].name);
 refreshEventListeners();
+
+console.log(projectFunctions.getAllLists(projects));
+const date = new Date('2024-03-11T12:00');
+const date2 = new Date('2024-03-06T20:24:32');
+const today = new Date();
+console.log(date.getTime() < today.getTime()); // Dated dued
+console.log([date.getFullYear(), pad2digits(date.getMonth()+1), pad2digits(date.getDate())].join('-'));
+
+console.log(date.getDate() === today.getDate());
+console.log(date2.getDate() === today.getDate());
+
+// Pad 0s on day & month
+function pad2digits(num) {
+    return String(num).padStart(2, '0');
+}
