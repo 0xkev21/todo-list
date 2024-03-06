@@ -39,12 +39,13 @@ const addProjectBtn = document.querySelector('#add-project-btn');
 // Project Buttons
 const homeBtn = document.querySelector('button[title="Home"]');
 const allListsBtn = document.querySelector('button[title="All Lists"]');
+const todayListBtn = document.querySelector('button[title="Today"]');
 const myProjectsBtn = document.querySelector('button[title="My Projects"]');
 
 const projects = [
     new ProjectMaker("Home", null),
 ];
-let currentPage;
+let currentPage = null;
 
 // Add Todo Item
 function addTodoItem (title, description, dueDate, priority, notes, done, project) {
@@ -59,24 +60,29 @@ function addTodoItem (title, description, dueDate, priority, notes, done, projec
 // Changing todo item
 function updateDoneStatus(projectIndex, todo) {
     TodoFunctions.changeState(projects[projectIndex].list[todo]);
-    if(currentPage === "allLists") {
-        DomFunctions.updateTodoList(projects, 'allLists', 'All Lists');
-    } else {
-        DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
-    }
+    updatePage(projectIndex);
     refreshEventListeners();
 }
 
 // Remove Todo Item
 function removeTodoItem (projectIndex, index) {
     TodoFunctions.deleteItem(projects[projectIndex].list, index);
-    if(currentPage === "allLists") {
-        DomFunctions.updateTodoList(projects, 'allLists', 'All Lists');
-    } else {
-        DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
-    }
+    updatePage(projectIndex);
     todoDetailsDiv.classList.remove('show');
     refreshEventListeners();
+}
+
+function updatePage(projectIndex) {
+    switch(currentPage){
+        case 'allLists':
+            DomFunctions.updateTodoList(projects, 'allLists', 'All Lists');
+            break;
+        case 'todayList':
+            DomFunctions.updateTodoList(projects, 'todayList', 'Today List');
+            break;
+        default:
+            DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
+    }
 }
 
 // Add Project
@@ -128,7 +134,6 @@ projectForm.addEventListener('click', (e) => {e.stopPropagation()});
 // Add todo item on Form submit
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log(todoDate.value);
     const dueDate = todoDate.value + "T" + todoTime.value;
     addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
 });
@@ -153,6 +158,11 @@ myProjectsBtn.addEventListener('click', () => {
 allListsBtn.addEventListener('click', () => {
     DomFunctions.updateTodoList(projects, "allLists", "All Lists");
     currentPage = "allLists";
+    refreshEventListeners();
+})
+todayListBtn.addEventListener('click', () => {
+    DomFunctions.updateTodoList(projects, "todayList", "Today List");
+    currentPage = "todayList";
     refreshEventListeners();
 })
 
@@ -199,27 +209,11 @@ function refreshEventListeners() {
 addProject("My Project 1", 1);
 addProject("My Project 2", 2);
 
-addTodoItem("Code", "<img src=''>", "2024-3-1", 1, "blah blah blah", false, 0);
-addTodoItem("Eat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 0);
-addTodoItem("Sleep", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 1);
-addTodoItem("Repeat", "coding is beautiful", "2024-3-1", 1, "blah blah blah", false, 2);
+addTodoItem("Code", "<img src=''>", "2024-03-03", 1, "blah blah blah", false, 0);
+addTodoItem("Eat", "coding is beautiful", "2024-03-04", 1, "blah blah blah", false, 0);
+addTodoItem("Sleep", "coding is beautiful", "2024-03-05", 1, "blah blah blah", false, 1);
+addTodoItem("Repeat", "coding is beautiful", "2024-03-06", 1, "blah blah blah", false, 2);
 
 // Start at Home Page 
-currentPage = null;
 DomFunctions.updateTodoList(projects, 0, projects[0].name);
 refreshEventListeners();
-
-console.log(projectFunctions.getAllLists(projects));
-const date = new Date('2024-03-11T12:00');
-const date2 = new Date('2024-03-06T20:24:32');
-const today = new Date();
-console.log(date.getTime() < today.getTime()); // Dated dued
-console.log([date.getFullYear(), pad2digits(date.getMonth()+1), pad2digits(date.getDate())].join('-'));
-
-console.log(date.getDate() === today.getDate());
-console.log(date2.getDate() === today.getDate());
-
-// Pad 0s on day & month
-function pad2digits(num) {
-    return String(num).padStart(2, '0');
-}

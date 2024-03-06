@@ -41,14 +41,11 @@ function updateTodoList(array, index, title) {
     todoListsDiv.innerHTML = '';
     todoListTitle.textContent = title;
     const fragment = document.createDocumentFragment();
-    let todosToDisplay = [];
-    if(index === "allLists") {
-        array.forEach(project => {
-            const todosWithIndices = project.list.map((todo, index) => (
-                {todo, index}
-            ));
-            todosToDisplay = [...todosToDisplay, ...todosWithIndices];
-        })
+    let todosToDisplay;
+    if (index === 'allLists') {
+        todosToDisplay = projectFunctions.getAllLists(array);
+    } else if (index === 'todayList') {
+        todosToDisplay = projectFunctions.getTodayList(array);
     } else {
         todosToDisplay = [...array[index].list.map((todo, index) => (
             {todo, index}
@@ -88,7 +85,6 @@ function updateProjectList(array) {
 
 // Todo Details Page
 function displayTodoDetails(todo) {
-
     todoTitle.textContent = todo.title;
     todoDescription.textContent = todo.description;
     todoDuedate.textContent = todo.dueDate;
