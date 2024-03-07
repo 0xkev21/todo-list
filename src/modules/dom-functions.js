@@ -46,6 +46,9 @@ function updateTodoList(array, index, title) {
         todosToDisplay = projectFunctions.getAllLists(array);
     } else if (index === 'todayList') {
         todosToDisplay = projectFunctions.getTodayList(array);
+    } else if (index === 'upcomingList') {
+        todosToDisplay = projectFunctions.getUpcomingList(array);
+        console.log("hey");
     } else {
         todosToDisplay = [...array[index].list.map((todo, index) => (
             {todo, index}

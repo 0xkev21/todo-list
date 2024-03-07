@@ -1,3 +1,4 @@
+// Dependencies
 import './style/style.scss';
 import 'material-symbols/outlined.css';
 import './modules/theme&sidebar';
@@ -5,8 +6,8 @@ import TodoMaker from './modules/todo-maker';
 import ProjectMaker from './modules/project-maker';
 import TodoFunctions from './modules/todo-functions';
 import DomFunctions from './modules/dom-functions';
-import todoFunctions from './modules/todo-functions';
-import projectFunctions from './modules/project-functions';
+import ProjectFunctions from './modules/project-functions';
+
 
 // DOM Elements
 const todoListDiv = document.querySelector('.todo-lists');
@@ -40,29 +41,33 @@ const addProjectBtn = document.querySelector('#add-project-btn');
 const homeBtn = document.querySelector('button[title="Home"]');
 const allListsBtn = document.querySelector('button[title="All Lists"]');
 const todayListBtn = document.querySelector('button[title="Today"]');
+const upcomingListBtn = document.querySelector('button[title="Upcoming"]');
 const myProjectsBtn = document.querySelector('button[title="My Projects"]');
 
+// Initialize variables
 const projects = [
     new ProjectMaker("Home", null),
 ];
 let currentPage = null;
 
+
 // Add Todo Item
 function addTodoItem (title, description, dueDate, priority, notes, done, project) {
     const newTodo = new TodoMaker(title, description, dueDate, priority, notes, done, project);
-    // const index = projects[project].list.length;
     projects[project].list.push(newTodo);
     DomFunctions.updateTodoList(projects, project, projects[project].name);
     todoFormContainer.classList.remove('show');
     refreshEventListeners();
 }
 
-// Changing todo item
+
+// Changing todo done status
 function updateDoneStatus(projectIndex, todo) {
     TodoFunctions.changeState(projects[projectIndex].list[todo]);
     updatePage(projectIndex);
     refreshEventListeners();
 }
+
 
 // Remove Todo Item
 function removeTodoItem (projectIndex, index) {
@@ -72,6 +77,8 @@ function removeTodoItem (projectIndex, index) {
     refreshEventListeners();
 }
 
+
+// Update Page based on currentPage
 function updatePage(projectIndex) {
     switch(currentPage){
         case 'allLists':
@@ -80,10 +87,14 @@ function updatePage(projectIndex) {
         case 'todayList':
             DomFunctions.updateTodoList(projects, 'todayList', 'Today List');
             break;
+        case 'upcomingList':
+            DomFunctions.updateTodoList(projects, 'upcomingList', 'Upcoming List');
+            break;
         default:
             DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
     }
 }
+
 
 // Add Project
 function addProject (name, priority) {
@@ -105,13 +116,15 @@ function addProject (name, priority) {
     DomFunctions.updateTodoList(projects, projects.length - 1, projects[projects.length -1].name);
 }
 
+
 // Remove Project
 function removeProject (index) {
     TodoFunctions.deleteItem(projects, index);
     DomFunctions.updateTodoList(projects, 0, projects[0].name);
 }
 
-// Event Listeners Todo Form Open Up
+
+// Toggle Todo Form Open Up
 openTodoFormBtn.addEventListener('click', () => {
     todoFormContainer.classList.add('show');
     todoFormContainer.addEventListener('click', () => {
@@ -120,7 +133,8 @@ openTodoFormBtn.addEventListener('click', () => {
 });
 todoForm.addEventListener('click', (e) => {e.stopPropagation()});
 
-// Event Listener Project Form Open Up
+
+// Toggle Project Form Open Up
 openProjectFormBtns.forEach(btn => {
         btn.addEventListener('click', () => {
         projectFormContainer.classList.add('show');
@@ -131,20 +145,23 @@ openProjectFormBtns.forEach(btn => {
 })
 projectForm.addEventListener('click', (e) => {e.stopPropagation()});
 
-// Add todo item on Form submit
+
+// Add/Edit todo item on Form submit
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const dueDate = todoDate.value + "T" + todoTime.value;
     addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
 });
 
-// Add project on Form submit
+
+// Add/Edit project on Form submit
 addProjectBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if(projectTitle.value && projectPriority.value) {
         addProject(projectTitle.value, projectPriority.value);
     }
 })
+
 
 // Navigate Projects
 homeBtn.addEventListener('click', () => {
@@ -165,6 +182,12 @@ todayListBtn.addEventListener('click', () => {
     currentPage = "todayList";
     refreshEventListeners();
 })
+upcomingListBtn.addEventListener('click', () => {
+    DomFunctions.updateTodoList(projects, "upcomingList", "Upcoming List");
+    currentPage = "upcomingList";
+    refreshEventListeners();
+})
+
 
 // Details Container
 function showTodoDetails(projectIndex, index) {
@@ -172,16 +195,25 @@ function showTodoDetails(projectIndex, index) {
     DomFunctions.displayTodoDetails(todo);
     const todoEditBtn = document.querySelector('.todo-edit-btn');
     const todoDeleteBtn = document.querySelector('.todo-del-btn');
-    todoDeleteBtn.onclick = function () {
+    todoDeleteBtn.onclick = () => {
         removeTodoItem(todo.project, index);
     };
-
+    todoEditBtn.addEventListener('click', () => {
+        showEditForm(projectIndex, index);
+    })
     todoDetailsDiv.classList.add('show');
     todoDetailsDiv.addEventListener('click', () => {
         todoDetailsDiv.classList.remove('show');
     });
 };
 todoDetails.addEventListener('click', (e) => {e.stopPropagation()});
+
+
+// Edit Todo Form
+function showEditForm(projectIndex, index) {
+
+}
+
 
 // Refresh Event Listeners
 function refreshEventListeners() {
@@ -209,8 +241,8 @@ function refreshEventListeners() {
 addProject("My Project 1", 1);
 addProject("My Project 2", 2);
 
-addTodoItem("Code", "<img src=''>", "2024-03-03", 1, "blah blah blah", false, 0);
-addTodoItem("Eat", "coding is beautiful", "2024-03-04", 1, "blah blah blah", false, 0);
+addTodoItem("Code", "<img src=''>", "2024-03-07", 1, "blah blah blah", false, 0);
+addTodoItem("Eat", "coding is beautiful", "2024-03-08", 1, "blah blah blah", false, 0);
 addTodoItem("Sleep", "coding is beautiful", "2024-03-05", 1, "blah blah blah", false, 1);
 addTodoItem("Repeat", "coding is beautiful", "2024-03-06", 1, "blah blah blah", false, 2);
 

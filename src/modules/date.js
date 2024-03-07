@@ -53,9 +53,17 @@ function getFormattedDate (date) {
 }
 
 function filterToday(date) {
-    let formattedDate = date.split('T')[0];
+    const formattedDate = date.split('T')[0];
     const today = getFormattedDate(new Date());
     return formattedDate === today;
 }
 
-export default {filterToday};
+function filterUpcoming(date) {
+    const totalTimeFromDate = new Date(date).getTime();
+    console.log(totalTimeFromDate);
+    const totalTimeFromToday = new Date().getTime();
+    console.log(totalTimeFromToday);
+    return totalTimeFromDate > totalTimeFromToday;
+}
+
+export default {filterToday, filterUpcoming};

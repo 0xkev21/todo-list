@@ -18,4 +18,12 @@ function getTodayList (projects) {
     return todayList;
 }
 
-export default {getAllLists, getTodayList};
+function getUpcomingList (projects) {
+    const allLists = getAllLists(projects);
+    const upcomingList = allLists.filter(({todo, index}) => {
+        return dateFunctions.filterUpcoming(todo.dueDate);
+    })
+    return upcomingList;
+}
+
+export default {getAllLists, getTodayList, getUpcomingList};
