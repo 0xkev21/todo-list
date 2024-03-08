@@ -53,6 +53,10 @@ button {
 button.btn-circle {
     @include button(primary, circle);
 }
+button.btn-cancel {
+    background-color: transparent;
+    border: 2px solid var(--bg-color-primary);
+}
 
 [data-theme='dark'] button:hover {
     filter: brightness(1.8);

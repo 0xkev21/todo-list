@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
+@import 'reset';
 @import 'variables';
 @import 'themes';
 @import 'mixins';
-@import 'reset';
 
 body {
     background: var(--bg-color);
@@ -170,8 +170,8 @@ main {
     height: 100vh;
     position: absolute;
     display: none;
-    -webkit-backdrop-filter: blur(1px) brightness(0.1);
-    backdrop-filter: blur(1px) brightness(0.1);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
     z-index: 2;
 
     .new-todo-form {
@@ -252,8 +252,8 @@ main {
     position: absolute;
     place-items: center;
     display: none;
-    -webkit-backdrop-filter: blur(1px) brightness(0.1);
-    backdrop-filter: blur(1px) brightness(0.1);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
     z-index: 2;
 
     .details-card {
@@ -295,8 +295,8 @@ main {
     place-items: center;
     display: none;
     z-index: 3;
-    -webkit-backdrop-filter: blur(1px) brightness(0.1);
-    backdrop-filter: blur(1px) brightness(0.1);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
 
     .project-form {
         padding: 1.5rem;
@@ -325,4 +325,11 @@ main {
 }
 .project-form-container.show {
     display: grid;
+}
+
+form > .btn-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row-reverse;
 }
