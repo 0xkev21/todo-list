@@ -1,4 +1,6 @@
 import dateFunctions from './date.js';
+import {default as obj} from './todo-functions';
+const {changeTitle, changePriority} = obj;
 
 function getAllLists (projects) {
     let arr = [];
@@ -26,4 +28,9 @@ function getUpcomingList (projects) {
     return upcomingList;
 }
 
-export default {getAllLists, getTodayList, getUpcomingList};
+function editProject(project, newTitle, newPriority) {
+    changeTitle(project, newTitle);
+    changePriority(project, newPriority);
+}
+
+export default {getAllLists, getTodayList, getUpcomingList, editProject};

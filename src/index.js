@@ -37,6 +37,7 @@ const addTodoBtn = document.querySelector('#add-todo-btn');
 const openProjectFormBtns = document.querySelectorAll('.open-project-form-btn');
 const addProjectBtn = document.querySelector('#add-project-btn');
 const cancelBtns = document.querySelectorAll('.btn-cancel');
+const removeProjectBtn = projectForm.querySelector('.btn-circle');
 
 // Project Buttons
 const homeBtn = document.querySelector('button[title="Home"]');
@@ -51,6 +52,7 @@ const projects = [
 ];
 let currentPage = null;
 let editingTodo = false;
+let editingProject = false;
 
 
 // Add Todo Item
@@ -74,6 +76,21 @@ function removeTodoItem (projectIndex, index) {
     todoDetailsDiv.classList.remove('show');
 }
 
+// Add Project
+function addProject (name, priority) {
+    const newProject = new ProjectMaker(name, priority);
+    projects.push(newProject);
+    updateProjects();
+    projectsDiv.classList.add('show');
+    updatePage(projects.length -1);
+}
+
+// Remove Project
+function removeProject (index) {
+    TodoFunctions.deleteItem(projects, index);
+    updateProjects();
+    if(currentPage) updatePage(0);
+}
 
 // Update Page based on currentPage
 function updatePage(projectIndex) {
@@ -88,38 +105,29 @@ function updatePage(projectIndex) {
             DomFunctions.updateTodoList(projects, 'upcomingList', 'Upcoming List');
             break;
         default:
-            DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].name);
+            DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].title);
     }
     refreshEventListeners();
 }
 
-
-// Add Project
-function addProject (name, priority) {
-    const newProject = new ProjectMaker(name, priority);
-    projects.push(newProject);
+function updateProjects() {
     DomFunctions.updateProjectList(projects);
-    // refreshEventListeners();
     const projectBtns = document.querySelectorAll('.project-btn');
     projectBtns.forEach(btn => {
+        const index = btn.getAttribute('data-index');
         btn.addEventListener('click', () => {
-            const index = btn.getAttribute('data-index');
             currentPage = null;
             updatePage(index);
+        });
+        const projectEditBtn = btn.querySelector('.link-btn');
+        projectEditBtn.addEventListener('click', (e) => {
+            editingProject = index;
+            e.stopPropagation();
+            showProjectEditForm(index);
         })
-    })
+    });
     projectFormContainer.classList.remove('show');
-    projectsDiv.classList.add('show');
-    updatePage(projects.length -1);
 }
-
-
-// Remove Project
-function removeProject (index) {
-    TodoFunctions.deleteItem(projects, index);
-    updatePage(0);
-}
-
 
 // Toggle Todo Form Open Up
 openTodoFormBtn.addEventListener('click', () => {
@@ -164,37 +172,56 @@ function showEditForm(projectIndex, index) {
     todoProject.value = todo.project;
     todoFormContainer.classList.add('show');
     todoDetailsDiv.classList.remove('show');
-    addTodoBtn.textContent = "Save Changes";
+    addTodoBtn.textContent = 'Save Changes';
+}
+
+// Edit ProjectForm
+function showProjectEditForm(projectIndex) {
+    const project = projects[projectIndex];
+    projectTitle.value = project.title;
+    projectPriority.value = project.priority;
+    projectFormContainer.classList.add('show');
+    projectForm.setAttribute('data-index', projectIndex);
+    addProjectBtn.textContent = 'Save Changes';
 }
 
 function closeForm(form) {
+    editingTodo = false;
+    editingProject = false;
     form.reset();
     form.parentNode.classList.remove('show');
 }
 
-
 // Add/Edit todo item on Form submit
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const dueDate = todoDate.value + "T" + todoTime.value;
+    const dueDate = todoDate.value + 'T' + todoTime.value;
     if(editingTodo) {
         TodoFunctions.editTodo(projects, editingTodo, todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, +todoProject.value);
     } else {
         addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
     }
     updatePage(todoProject.value);
-    todoFormContainer.classList.remove('show');
+    closeForm(todoForm);
 });
-
 
 // Add/Edit project on Form submit
 addProjectBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if(projectTitle.value && projectPriority.value) {
+    if(editingProject) {
+        ProjectFunctions.editProject(projects[editingProject], projectTitle.value, projectPriority.value);
+    } else if(projectTitle.value && projectPriority.value) {
         addProject(projectTitle.value, projectPriority.value);
     }
+    updateProjects();
+    closeForm(projectForm);
 })
 
+// Remove Project
+removeProjectBtn.addEventListener('click', function() {
+    const index = + this.parentNode.getAttribute('data-index');
+    removeProject(index);
+})
 
 // Navigate Projects
 homeBtn.addEventListener('click', () => {
@@ -205,18 +232,17 @@ myProjectsBtn.addEventListener('click', () => {
     projectsDiv.classList.toggle('show');
 });
 allListsBtn.addEventListener('click', () => {
-    currentPage = "allLists";
+    currentPage = 'allLists';
     updatePage();
 })
 todayListBtn.addEventListener('click', () => {
-    currentPage = "todayList";
+    currentPage = 'todayList';
     updatePage();
 })
 upcomingListBtn.addEventListener('click', () => {
-    currentPage = "upcomingList";
+    currentPage = 'upcomingList';
     updatePage();
 })
-
 
 // Details Container
 function showTodoDetails(projectIndex, index) {
@@ -236,7 +262,6 @@ function showTodoDetails(projectIndex, index) {
     });
 };
 todoDetails.addEventListener('click', (e) => {e.stopPropagation()});
-
 
 // Refresh Event Listeners
 function refreshEventListeners() {
@@ -272,5 +297,5 @@ addTodoItem("Meeting", "Discuss project updates", "2024-03-11T15:45:00", 2, "Att
 addTodoItem("Project", "Work on UI improvements", "2024-03-12T09:30:00", 3, "Work on project", false, 2);
 
 // Start at Home Page 
-DomFunctions.updateTodoList(projects, 0, projects[0].name);
+updatePage(0);
 refreshEventListeners();

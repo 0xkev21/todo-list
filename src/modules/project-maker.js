@@ -1,6 +1,6 @@
 export default class ProjectMaker {
-    constructor(name, priority) {
-        Object.assign(this, {name, priority});
+    constructor(title, priority) {
+        Object.assign(this, {title, priority});
         this.list = [];
     }
 }

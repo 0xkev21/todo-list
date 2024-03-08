@@ -3,27 +3,21 @@ import TodoMaker from './todo-maker';
 function changeTitle(todo, newTitle) {
     todo.title = newTitle;
 }
-
 function changeDescription(todo, newDescription) {
     todo.description = newDescription;
 }
-
 function changeDueDate (todo, newDate) {
     todo.dueDate = newDate;
 }
-
 function changePriority (todo, newPriority) {
     todo.priority = newPriority;
 }
-
 function changeNotes (todo, newNotes) {
     todo.notes = newNotes;
 }
-
 function changeState (todo) {
     todo.done = todo.done ? false : true;
 }
-
 function deleteItem (array, index) {
     return array.splice(index, 1);
 }
@@ -42,4 +36,4 @@ function editTodo(projects, todo, newTitle, newDes, newDueDate, newPriority, new
     }
 }
 
-export default {editTodo, changeState, deleteItem};
+export default {changeTitle, changePriority, editTodo, changeState, deleteItem};

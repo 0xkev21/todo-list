@@ -10,6 +10,7 @@ const todoDescription = document.querySelector('.det-todo-description');
 const todoDuedate = document.querySelector('.det-todo-duedate span');
 const todoPriority = document.querySelector('.det-todo-priority span');
 const todoNotes = document.querySelector('.det-todo-notes');
+const priorities = ["Not Important", "Normal", "Important"]
 
 // Todo DOM
 function createTodo (todo, index) {
@@ -18,6 +19,7 @@ function createTodo (todo, index) {
     item.setAttribute('data-index', index);
     item.setAttribute('data-project', todo.project);
     item.setAttribute('data-done', todo.done);
+    item.setAttribute('data-p', todo.priority);
     const HTMLSnippet = `
         <div class="title-description-container">
             <h4 class="todo-title">
@@ -31,6 +33,7 @@ function createTodo (todo, index) {
             <button class="todo-done btn-circle" title=${todo.done? "Done": "Todo"}><span class="material-symbols-outlined">${todo.done? "check_circle": "radio_button_unchecked"}</span></button>
             <button class="todo-details btn-circle" title="More Details"><span class="material-symbols-outlined">summarize</span></button>
         </div>
+        <span class="priority" title="Priority-${priorities[todo.priority - 1]}"></span>
     `;
     item.innerHTML = HTMLSnippet;
     return item;
@@ -64,15 +67,34 @@ function updateTodoList(array, index, title) {
 
 // Project DOM
 function createProject(project, index) {
-    const button = document.createElement('button');
+    const button = document.createElement('div');
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('link-btn');
+    editBtn.setAttribute('type', 'button');
+    editBtn.setAttribute('title', 'Edit Project');
+    const editSymbol = document.createElement('span');
+    editSymbol.classList.add('material-symbols-outlined');
+    editSymbol.textContent = 'edit';
+    editBtn.appendChild(editSymbol);
+    const title = document.createElement('span');
+    title.textContent = project.title;
+    const priority = document.createElement('span');
+    priority.classList.add('priority');
+    priority.setAttribute('title', `Priority-${priorities[project.priority - 1]}`);
+
     button.classList.add('link-btn', 'project-btn');
     button.setAttribute('type', 'button');
     button.setAttribute('data-index', index);
-    button.setAttribute('title', project.name);
-    button.textContent = project.name;
+    button.setAttribute('title', project.title);
+    button.setAttribute('data-p', project.priority)
+    
+    button.appendChild(title);
+    button.appendChild(editBtn);
+    button.appendChild(priority);
+
     const option = document.createElement('option');
     option.setAttribute('value', index);
-    option.textContent = project.name;
+    option.textContent = project.title;
     return {button: button, option: option};
 }
 

@@ -9,22 +9,8 @@
     align-items: center;
     width: auto;
 
-    @if $color == red {
-        background-color: var(--bg-color-red);
-        color: var(--text-color-red);
-    }
-    @else if $color == yellow {
-        background-color: var(--bg-color-yellow);
-        color: var(--text-color-yellow);
-    }
-    @else if $color == green {
-        background-color: var(--bg-color-green);
-        color: var(--text-color-green);
-    }
-    @else {
-        background-color: var(--bg-color-primary);
-        color: var(--text-color-primary);
-    }
+    background-color: var(--bg-color-primary);
+    color: var(--text-color-primary);
 
     @if $corner == rounded {
         border-radius: 0.8rem;
@@ -38,22 +24,16 @@
     }
 }
 
-button.red {
-    @include button(red, circle);
-}
-button.yellow {
-    @include button(yellow, circle);
-}
-button.green {
-    @include button(green, circle);
-}
 button {
     @include button(primary, rounded);
 }
-button.btn-circle {
+.link-btn {
+    @include button(primary, rounded);
+}
+.btn-circle {
     @include button(primary, circle);
 }
-button.btn-cancel {
+.btn-cancel {
     background-color: transparent;
     border: 2px solid var(--bg-color-primary);
 }
@@ -63,4 +43,25 @@ button.btn-cancel {
 }
 [data-theme='light'] button:hover {
     filter: brightness(0.8);
+}
+
+.priority {
+    display: block;
+    background-color: var(--bg-color-red);
+    width: 0.7rem;
+    height: 6rem;
+    position: absolute;
+    transform: rotate(45deg);
+    left: -0.5rem;
+    top: -1.2rem;
+}
+
+[data-p="3"] > .priority {
+    background-color: var(--bg-color-red);
+}
+[data-p="2"] > .priority {
+    background-color: var(--bg-color-yellow);
+}
+[data-p="1"] > .priority {
+    background-color: var(--bg-color-green);
 }

@@ -1,7 +1,4 @@
 html[data-theme="light"] {
-    --text-color-red: #{$color-red};
-    --text-color-yellow: #{$color-yellow};
-    --text-color-green: #{$color-green};
     --text-color-primary: #{$color-primary};
     --text-color: #{$color-text};
 
@@ -15,9 +12,6 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-    --text-color-red: #{$bg-red};
-    --text-color-yellow: #{$bg-yellow};
-    --text-color-green: #{$bg-green};
     --text-color-primary: #{$bg-primary};
     --text-color: #{$color-bg};
 
