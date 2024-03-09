@@ -183,6 +183,7 @@ function showProjectEditForm(projectIndex) {
     projectFormContainer.classList.add('show');
     projectForm.setAttribute('data-index', projectIndex);
     addProjectBtn.textContent = 'Save Changes';
+    removeProjectBtn.classList.add('show');
 }
 
 function closeForm(form) {
@@ -190,6 +191,7 @@ function closeForm(form) {
     editingProject = false;
     form.reset();
     form.parentNode.classList.remove('show');
+    removeProjectBtn.classList.remove('show');
 }
 
 // Add/Edit todo item on Form submit
@@ -203,6 +205,7 @@ addTodoBtn.addEventListener('click', (e) => {
     }
     updatePage(todoProject.value);
     closeForm(todoForm);
+    closeSidebar();
 });
 
 // Add/Edit project on Form submit
@@ -215,6 +218,7 @@ addProjectBtn.addEventListener('click', (e) => {
     }
     updateProjects();
     closeForm(projectForm);
+    closeSidebar();
 })
 
 // Remove Project
@@ -282,6 +286,13 @@ function refreshEventListeners() {
             showTodoDetails(projectIndex, index);
         })
     })
+}
+
+const smallScreen = window.matchMedia("(max-width: 760px)");
+function closeSidebar() {
+    if(smallScreen.matches) {
+        document.body.classList.remove('show-side-bar');
+    }
 }
 
 // TESTING

@@ -23,3 +23,39 @@ html[data-theme="dark"] {
 
     --card-color: #{$card-color-dark};
 }
+
+.theme-switch-btn {
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border-radius: 50px;
+    background-color: var(--bg-color-primary);
+
+    span, input[name='theme-switch'] {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    
+    input[name='theme-switch'] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+    }
+
+    span {
+        color: var(--text-color-primary);
+        font-size: 1.5rem;
+    }
+}
+
+input[name='theme-switch']:checked ~ .light {
+    display: none;
+}
+input[name='theme-switch']:not(:checked) ~ .dark {
+    display: none;
+}

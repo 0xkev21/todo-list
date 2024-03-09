@@ -1,31 +1,36 @@
-const themeSwitchButton = document.querySelector('input[name=theme-switch]');
+const themeSwitchButtonContainer = document.querySelector('.theme-switch-btn');
+const themeSwitchButton = document.querySelector('input[name="theme-switch"]');
 const sidebarBtn = document.querySelector('.side-bar-toggle');
+
+console.log(themeSwitchButton);
 
 // Match user Theme
 if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.setAttribute('data-theme', 'dark');
     themeSwitchButton.checked = true;
-    themeSwitchButton.setAttribute('title', "Light Mode");
+    themeSwitchButtonContainer.setAttribute('title', "Light Mode");
 } else {
     document.documentElement.setAttribute('data-theme', 'light');
     themeSwitchButton.checked = false;
-    themeSwitchButton.setAttribute('title', "Dark Mode");
+    themeSwitchButtonContainer.setAttribute('title', "Dark Mode");
 }
 
 // Toggle Theme on Click
-themeSwitchButton.addEventListener('change',(e) => {
-    if(e.target.checked) {
+themeSwitchButtonContainer.addEventListener('click', (e) => {
+    if(!themeSwitchButton.checked) {
+        themeSwitchButton.checked = true;
         document.documentElement.setAttribute('data-theme', 'dark');
-        e.target.setAttribute('title', "Switch to Light");
+        themeSwitchButtonContainer.setAttribute('title', "Switch to Light");
     } else {
+        themeSwitchButton.checked = false;
         document.documentElement.setAttribute('data-theme', 'light');
-        e.target.setAttribute('title', "Switch to Dark");
+        themeSwitchButtonContainer.setAttribute('title', "Switch to Dark");
     }
 });
 
 // Toggle Sidebar
 document.body.classList.add('show-side-bar');
 sidebarBtn.addEventListener('click', () => {
-    console.log("test");
     document.body.classList.toggle('show-side-bar');
 })
+

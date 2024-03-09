@@ -1,28 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
 @import 'reset';
 @import 'variables';
-@import 'themes';
 @import 'mixins';
-
-body {
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Noto Sans Symbols';
-    line-height: 2;
-}
+@import 'themes';
 
 body {
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-template-rows: auto;
     height: 100vh;
-    overflow: hidden;
+    width: 100vw;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Noto Sans Symbols';
+    line-height: 2;
+    overflow-x: hidden;
 
     aside, main {
         padding: 1rem;
         position: relative;
         overflow-y: scroll;
         height: 100vh;
+        background-color: var(--bg-color);
     }
 }
 
@@ -66,7 +65,7 @@ input, textarea, select {
 }
 
 aside {
-    position: relative;
+    position: absolute;
     left: -300px;
 
     .profile {
@@ -138,7 +137,7 @@ aside {
 }
 
 main {
-    position: relative;
+    position: absolute;
     left: -300px;
     width: 100vw;
     
@@ -152,7 +151,7 @@ main {
         display: grid;
         align-items: center;
         gap: 1rem;
-        padding: 1rem 6rem;
+        padding: 1rem clamp(1rem, 5vw, 96px);
     }
 
     .todo-card-container {
@@ -163,7 +162,12 @@ main {
         display: flex;
         justify-content: space-between;
         position: relative;
-        overflow: hidden;
+        overflow-x: hidden;
+        flex-wrap: wrap;
+
+        .title-description-container {
+            min-width: 300px;
+        }
     }
 
     .todo-card-container[data-done="true"] {
@@ -182,23 +186,20 @@ main {
 }
 
 .form-container.show {
-    display: block;
+    display: grid;
 }
 .form-container {
     width: 100vw;
     height: 100vh;
     position: absolute;
     display: none;
+    place-content: center;
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
     z-index: 2;
 
     .new-todo-form {
-        position: absolute;
-        inset: 0;
-        margin: auto;
         width: min(90vw, 500px);
-        height: 500px;
         background-color: var(--card-color);
         display: flex;
         justify-content: center;
@@ -348,10 +349,18 @@ main {
         bottom: 1.5rem;
         width: 2.5rem;
         height: 2.5rem;
+        display: none;
+    }
+    .btn-circle.show {
+        display: flex;
     }
 }
 .project-form-container.show {
     display: grid;
+}
+
+pre {
+    font-size: 1rem;
 }
 
 form > .btn-container {
@@ -359,4 +368,60 @@ form > .btn-container {
     align-items: center;
     gap: 1rem;
     flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 760px) {
+    :root {
+        font-size: 14px;
+    }
+    body {
+        overflow-x: hidden !important;
+    }
+    aside {
+        position: fixed;
+        width: 100vw;
+        left: -100vw;
+    }
+    .show-side-bar aside {
+        z-index: 2;
+    }
+    main {
+        position: fixed !important;
+        left: 0;
+        overflow-x: hidden;
+        min-width: 340px;
+    }
+    .show-side-bar .side-bar-toggle {
+        left: calc(100% - 4rem);
+    }
+
+    .todo-lists {
+        padding: 1rem 0 !important;
+        min-width: 300px;
+        overflow-x: hidden;
+    }
+
+    .new-toto-form {
+        overflow-y: scroll;
+        gap: 0.8rem !important;
+    }
+
+    .new-todo-form .input-container {
+        flex-direction: column;
+        gap: 0.5rem !important;
+        align-items: stretch !important;
+
+        label {
+            flex-basis: content !important;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .todo-card-container {
+        flex-direction: column;
+    }
+    .project-form .btn-container {
+        align-self: flex-end;
+    }
 }
