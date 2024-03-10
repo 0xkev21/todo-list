@@ -7,6 +7,7 @@ import ProjectMaker from './modules/project-maker';
 import TodoFunctions from './modules/todo-functions';
 import DomFunctions from './modules/dom-functions';
 import ProjectFunctions from './modules/project-functions';
+import DateFunctions from './modules/date.js';
 
 
 // DOM Elements
@@ -47,9 +48,7 @@ const upcomingListBtn = document.querySelector('button[title="Upcoming"]');
 const myProjectsBtn = document.querySelector('button[title="My Projects"]');
 
 // Initialize variables
-const projects = [
-    new ProjectMaker("Home", null),
-];
+let projects = [];
 let currentPage = null;
 let editingTodo = false;
 let editingProject = false;
@@ -59,6 +58,7 @@ let editingProject = false;
 function addTodoItem (title, description, dueDate, priority, notes, done, project) {
     const newTodo = new TodoMaker(title, description, dueDate, priority, notes, done, project);
     projects[project].list.push(newTodo);
+    updatePage(project);
 }
 
 
@@ -90,6 +90,7 @@ function removeProject (index) {
     TodoFunctions.deleteItem(projects, index);
     updateProjects();
     if(currentPage) updatePage(0);
+    updateData();
 }
 
 // Update Page based on currentPage
@@ -108,6 +109,7 @@ function updatePage(projectIndex) {
             DomFunctions.updateTodoList(projects, projectIndex, projects[projectIndex].title);
     }
     refreshEventListeners();
+    updateData();
 }
 
 function updateProjects() {
@@ -118,6 +120,7 @@ function updateProjects() {
         btn.addEventListener('click', () => {
             currentPage = null;
             updatePage(index);
+            closeSidebar();
         });
         const projectEditBtn = btn.querySelector('.link-btn');
         projectEditBtn.addEventListener('click', (e) => {
@@ -219,18 +222,21 @@ addProjectBtn.addEventListener('click', (e) => {
     updateProjects();
     closeForm(projectForm);
     closeSidebar();
+    updateData();
 })
 
 // Remove Project
 removeProjectBtn.addEventListener('click', function() {
     const index = + this.parentNode.getAttribute('data-index');
     removeProject(index);
+    updateData();
 })
 
 // Navigate Projects
 homeBtn.addEventListener('click', () => {
     currentPage = null;
     updatePage(0);
+    closeSidebar();
 });
 myProjectsBtn.addEventListener('click', () => {
     projectsDiv.classList.toggle('show');
@@ -238,14 +244,17 @@ myProjectsBtn.addEventListener('click', () => {
 allListsBtn.addEventListener('click', () => {
     currentPage = 'allLists';
     updatePage();
+    closeSidebar();
 })
 todayListBtn.addEventListener('click', () => {
     currentPage = 'todayList';
     updatePage();
+    closeSidebar();
 })
 upcomingListBtn.addEventListener('click', () => {
     currentPage = 'upcomingList';
     updatePage();
+    closeSidebar();
 })
 
 // Details Container
@@ -295,18 +304,48 @@ function closeSidebar() {
     }
 }
 
+function getData() {
+    const projectsString = localStorage.getItem('my-projects');
+    const today = new Date();
+    const nextWeek = new Date(today.setDate(today.getDate() + 7));
+    const formattedDate = DateFunctions.getFormattedDate(nextWeek) + "T12:00:00";
+    if(projectsString) {
+        projects = JSON.parse(projectsString);
+        projects.forEach(project => {
+            Object.setPrototypeOf(project, ProjectMaker);
+            project.list.forEach(todo => {
+                Object.setPrototypeOf(todo, TodoMaker);
+            })
+        });
+    } else {
+        projects = [new ProjectMaker('Hom', null)];
+        addTodoItem(
+            "How To Use ?",
+            "Check this todo to learn how to use this web app",
+            formattedDate,
+            1,
+            "Things You can do !\n- Add todo items with Add new task button\n- Add new projects with the new project button\n- Mark Todos done/undone\n- Edit/Delete added items and projects",
+            false,
+            0
+        );
+    }
+    updatePage(0);
+}
+
+function updateData() {
+    localStorage.setItem('my-projects', JSON.stringify(projects));
+}
+
+getData();
+
 // TESTING
 
-addProject("My Project 1", 1);
-addProject("My Project 2", 2);
+// addProject("My Project 1", 1);
+// addProject("My Project 2", 2);
 
-addTodoItem("Code", "Write code for the new feature", "2024-03-07T12:00:00", 1, "blah blah blah", false, 0);
-addTodoItem("Study", "Prepare for the upcoming exam", "2024-03-08T14:30:00", 2, "Study for exams", false, 0);
-addTodoItem("Exercise", "Go for a jog in the park", "2024-03-09T18:00:00", 3, "Go for a run", false, 1);
-addTodoItem("Read", "Finish the latest novel", "2024-03-10T10:00:00", 1, "Read a book", false, 1);
-addTodoItem("Meeting", "Discuss project updates", "2024-03-11T15:45:00", 2, "Attend team meeting", false, 2);
-addTodoItem("Project", "Work on UI improvements", "2024-03-12T09:30:00", 3, "Work on project", false, 2);
-
-// Start at Home Page 
-updatePage(0);
-refreshEventListeners();
+// addTodoItem("Code", "Write code for the new feature", "2024-03-07T12:00:00", 1, "blah blah blah", false, 0);
+// addTodoItem("Study", "Prepare for the upcoming exam", "2024-03-08T14:30:00", 2, "Study for exams", false, 0);
+// addTodoItem("Exercise", "Go for a jog in the park", "2024-03-09T18:00:00", 3, "Go for a run", false, 1);
+// addTodoItem("Read", "Finish the latest novel", "2024-03-10T10:00:00", 1, "Read a book", false, 1);
+// addTodoItem("Meeting", "Discuss project updates", "2024-03-11T15:45:00", 2, "Attend team meeting", false, 2);
+// addTodoItem("Project", "Work on UI improvements", "2024-03-12T09:30:00", 3, "Work on project", false, 2);

@@ -2,8 +2,6 @@ const themeSwitchButtonContainer = document.querySelector('.theme-switch-btn');
 const themeSwitchButton = document.querySelector('input[name="theme-switch"]');
 const sidebarBtn = document.querySelector('.side-bar-toggle');
 
-console.log(themeSwitchButton);
-
 // Match user Theme
 if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -33,4 +31,3 @@ document.body.classList.add('show-side-bar');
 sidebarBtn.addEventListener('click', () => {
     document.body.classList.toggle('show-side-bar');
 })
-

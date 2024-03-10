@@ -75,7 +75,8 @@ aside {
         letter-spacing: 0.2rem;
         position: absolute;
         top: 1rem;
-        left: 1rem;
+        right: 1rem;
+        flex-direction: row-reverse;
     }
 
     .side-bar-toggle {
@@ -131,9 +132,6 @@ aside {
 }
 .show-side-bar aside {
     left: 0;
-}
-.show-side-bar .side-bar-toggle {
-    left: calc(300px - 4rem);
 }
 
 main {
@@ -290,6 +288,15 @@ main {
         position: relative;
     }
 
+    pre {
+        width: 100%;
+        text-wrap: wrap;
+        background-color: var(--bg-color);
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid rgb(75, 0, 140);
+    }
+
     .det-todo-btns-container {
         display: flex;
         align-items: center;
@@ -340,6 +347,7 @@ main {
     }
 
     input, select {
+        width: 100%;
         flex: 1;
     }
 
@@ -391,13 +399,9 @@ form > .btn-container {
         overflow-x: hidden;
         min-width: 340px;
     }
-    .show-side-bar .side-bar-toggle {
-        left: calc(100% - 4rem);
-    }
 
     .todo-lists {
         padding: 1rem 0 !important;
-        min-width: 300px;
         overflow-x: hidden;
     }
 
@@ -415,13 +419,28 @@ form > .btn-container {
             flex-basis: content !important;
         }
     }
+
+    .todo-btns-container button {
+        width: 3rem;
+        height: 3rem;
+    }
 }
 
 @media screen and (max-width: 400px) {
+    :root {
+        font-size: 12px;
+    }
+    .material-symbols-outlined {
+        font-size: 1.5rem;
+    }
     .todo-card-container {
         flex-direction: column;
     }
     .project-form .btn-container {
         align-self: flex-end;
+    }
+
+    main {
+        min-width: 280px;
     }
 }

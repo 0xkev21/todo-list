@@ -24,7 +24,7 @@
     }
 }
 
-button {
+button, [role='button'] {
     @include button(primary, rounded);
 }
 .link-btn {
@@ -38,11 +38,15 @@ button {
     border: 2px solid var(--bg-color-primary);
 }
 
-[data-theme='dark'] button:hover {
-    filter: brightness(1.8);
+[data-theme='dark'] {
+    button:hover, [role='button']:hover {
+        filter: brightness(1.8);
+    }
 }
-[data-theme='light'] button:hover {
-    filter: brightness(0.8);
+[data-theme='light'] {
+    button:hover, [role='button']:hover {
+        filter: brightness(0.8);
+    }
 }
 
 .priority {

@@ -57,7 +57,6 @@ function updateTodoList(array, index, title) {
             {todo, index}
         ))];
     }
-    console.log(todosToDisplay);
 
     todosToDisplay.forEach(({todo, index}) => {
         fragment.appendChild(createTodo(todo, index));
