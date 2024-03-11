@@ -167,10 +167,6 @@ main {
         position: relative;
         overflow-x: hidden;
         flex-wrap: wrap;
-
-        .title-description-container {
-            min-width: 300px;
-        }
     }
 
     .todo-card-container[data-done="true"] {
