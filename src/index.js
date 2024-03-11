@@ -82,7 +82,7 @@ function addProject (name, priority) {
     projects.push(newProject);
     updateProjects();
     projectsDiv.classList.add('show');
-    updatePage(projects.length -1);
+    updatePage(projects.length - 1);
 }
 
 // Remove Project
@@ -129,6 +129,7 @@ function updateProjects() {
             showProjectEditForm(index);
         })
     });
+    
     projectFormContainer.classList.remove('show');
 }
 
@@ -145,9 +146,9 @@ todoForm.addEventListener('click', (e) => {e.stopPropagation()});
 
 // Toggle Project Form Open Up
 openProjectFormBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            addProjectBtn.textContent = 'Add Project';
-            projectFormContainer.classList.add('show');
+    btn.addEventListener('click', () => {
+        addProjectBtn.textContent = 'Add Project';
+        projectFormContainer.classList.add('show');
     });
 })
 projectFormContainer.addEventListener('click', () => {
@@ -200,29 +201,37 @@ function closeForm(form) {
 // Add/Edit todo item on Form submit
 addTodoBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const dueDate = todoDate.value + 'T' + todoTime.value;
-    if(editingTodo) {
-        TodoFunctions.editTodo(projects, editingTodo, todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, +todoProject.value);
+    if(todoForm.checkValidity()) {
+        const dueDate = todoDate.value + 'T' + todoTime.value;
+        if(editingTodo) {
+            TodoFunctions.editTodo(projects, editingTodo, todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, +todoProject.value);
+        } else {
+            addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
+        }
+        updatePage(todoProject.value);
+        closeForm(todoForm);
+        closeSidebar();
     } else {
-        addTodoItem(todoTitle.value, todoDescription.value, dueDate, todoPriority.value, todoNotes.value, false, +todoProject.value);
+        todoForm.reportValidity();
     }
-    updatePage(todoProject.value);
-    closeForm(todoForm);
-    closeSidebar();
 });
 
 // Add/Edit project on Form submit
 addProjectBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if(editingProject) {
-        ProjectFunctions.editProject(projects[editingProject], projectTitle.value, projectPriority.value);
-    } else if(projectTitle.value && projectPriority.value) {
-        addProject(projectTitle.value, projectPriority.value);
+    if(projectForm.checkValidity()) {
+        if(editingProject) {
+            ProjectFunctions.editProject(projects[editingProject], projectTitle.value, projectPriority.value);
+        } else if(projectTitle.value && projectPriority.value) {
+            addProject(projectTitle.value, projectPriority.value);
+        }
+        updateProjects();
+        closeForm(projectForm);
+        closeSidebar();
+        updateData();
+    } else {
+        projectForm.reportValidity();
     }
-    updateProjects();
-    closeForm(projectForm);
-    closeSidebar();
-    updateData();
 })
 
 // Remove Project
@@ -318,18 +327,19 @@ function getData() {
             })
         });
     } else {
-        projects = [new ProjectMaker('Hom', null)];
+        projects = [new ProjectMaker('Home', null)];
         addTodoItem(
             "How To Use ?",
             "Check this todo to learn how to use this web app",
             formattedDate,
-            1,
+            3,
             "Things You can do !\n- Add todo items with Add new task button\n- Add new projects with the new project button\n- Mark Todos done/undone\n- Edit/Delete added items and projects",
             false,
             0
         );
     }
     updatePage(0);
+    updateProjects();
 }
 
 function updateData() {

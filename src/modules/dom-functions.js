@@ -7,7 +7,8 @@ const todoListTitle = document.querySelector('.todo-list-title');
 
 const todoTitle = document.querySelector('.det-todo-title');
 const todoDescription = document.querySelector('.det-todo-description');
-const todoDuedate = document.querySelector('.det-todo-duedate span');
+const todoDueDate = document.querySelector('.det-todo-duedate .date');
+const todoDueTime = document.querySelector('.det-todo-duedate .time');
 const todoPriority = document.querySelector('.det-todo-priority span');
 const todoNotes = document.querySelector('.det-todo-notes');
 const priorities = ["Not Important", "Normal", "Important"]
@@ -111,8 +112,14 @@ function updateProjectList(array) {
 function displayTodoDetails(todo) {
     todoTitle.textContent = todo.title;
     todoDescription.textContent = todo.description;
-    todoDuedate.textContent = todo.dueDate;
-    todoPriority.textContent = todo.priority;
+    todoDueDate.textContent = todo.dueDate.split('T')[0];
+    todoDueTime.textContent = todo.dueDate.split('T')[1];
+    todoPriority.innerHTML = '';
+    const priorityArr = ['Not Important', 'Normal', 'Important'];
+    for(let i = 0; i < todo.priority; i++) {
+        todoPriority.innerHTML += '<span class="material-symbols-outlined">star</span>';
+    }
+    todoPriority.setAttribute('title', priorityArr[todo.priority - 1]);
     todoNotes.textContent = todo.notes;
 }
 
