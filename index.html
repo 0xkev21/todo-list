@@ -89,12 +89,12 @@
     <div class="form-container">
         <form class="new-todo-form">
             <div class="input-container">
-                <label for="title">Title: *</label>
+                <label for="title">Title:</label>
                 <input type="text" name="title" id="title" required maxlength ="32">
             </div>
             <div class="input-container">
-                <label for="description">Description: *</label>
-                <input type="text" name="description" id="description"  required maxlength="48">
+                <label for="description">Description:</label>
+                <input type="text" name="description" id="description" required maxlength="48">
             </div>
             <div class="input-container">
                 <label for="date">Due Date:</label>
@@ -105,7 +105,7 @@
             </div>
             <div class="input-container">
                 <label for="priority">Set Priority:</label>
-                <select name="priority" id="priority">
+                <select name="priority" id="priority" required>
                     <option value="3">Important</option>
                     <option value="2" selected>Normal</option>
                     <option value="1">Not Important</option>
@@ -118,7 +118,7 @@
             <div class="input-container">
                 <label for="project">Choose Project:</label>
                 <div class="todo-project-container">
-                    <select name="project" id="project">
+                    <select name="project" id="project" required>
                         <option value="0" selected>Home</option>
                     </select>
                     <button class="btn-circle open-project-form-btn" type="button" title="Add New Project">
@@ -137,11 +137,11 @@
         <form class="project-form">
             <div class="input-container">
                 <label for="project-title">Title:</label>
-                <input type="text" name="project-title" id="project-title">
+                <input type="text" name="project-title" id="project-title" required maxlength="32">
             </div>
             <div class="input-container">
                 <label for="project-priority">Set Priority:</label>
-                <select name="project-priority" id="project-priority">
+                <select name="project-priority" id="project-priority" required>
                     <option value="3">Important</option>
                     <option value="2" selected>Normal</option>
                     <option value="1">Not Important</option>
@@ -159,7 +159,11 @@
         <div class="details-card">
             <h3 class="det-todo-title">Code</h3>
             <p class="det-todo-description">just code blah blah blah</p>
-            <p class="det-todo-duedate">Due Date: <span>24-3-29</span></p>
+            <p>Due Date:
+            <span class="det-todo-duedate">
+                <span class="date"></span><span class="time"></span>
+            </span>
+            </p>
             <p class="det-todo-priority">Priority: <span>***</span></p>
             <pre class="det-todo-notes">blah blah blah blah blah</pre>
             
