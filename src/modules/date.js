@@ -28,10 +28,13 @@ function filterToday(date) {
 }
 
 function filterUpcoming(date) {
-    const totalTimeFromDate = new Date(date).getTime();
-    console.log(totalTimeFromDate);
+    let totalTimeFromDate;
+    if(!date.split('T')[1]) {
+        totalTimeFromDate = new Date(date + "00:00:00");
+    } else {
+        totalTimeFromDate = new Date(date).getTime();
+    }
     const totalTimeFromToday = new Date().getTime();
-    console.log(totalTimeFromToday);
     return totalTimeFromDate > totalTimeFromToday;
 }
 

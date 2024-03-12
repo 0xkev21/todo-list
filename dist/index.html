@@ -14,7 +14,7 @@
                         person
                     </span>
                 </button>
-                <h4>User</h4>
+                <h4>Kev</h4>
             </div>
             <button type="button" class="side-bar-toggle circle-btn" title="Toggle Sidebar">
                 <span class="material-symbols-outlined">
@@ -74,8 +74,8 @@
         </div>
     </aside>
     <main>
-        <div role="button" class="theme-switch-btn">
-            <input type="checkbox" name="theme-switch" Title="Theme">
+        <div role="button" class="theme-switch-btn" title="Theme">
+            <input type="checkbox" name="theme-switch">
             <span class="material-symbols-outlined light">light_mode</span>
             <span class="material-symbols-outlined dark">dark_mode</span>
         </div>
@@ -90,11 +90,11 @@
         <form class="new-todo-form">
             <div class="input-container">
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" required maxlength ="32">
+                <input type="text" name="title" id="title" required maxlength ="32" placeholder="Todo Title">
             </div>
             <div class="input-container">
                 <label for="description">Description:</label>
-                <input type="text" name="description" id="description" required maxlength="48">
+                <input type="text" name="description" id="description" required maxlength="48" placeholder="A Short Description">
             </div>
             <div class="input-container">
                 <label for="date">Due Date:</label>
@@ -113,7 +113,7 @@
             </div>
             <div class="input-container">
                 <label for="notes">Notes:</label>
-                <textarea id="notes" name="notes"></textarea>
+                <textarea id="notes" name="notes" placeholder="Some notes to remember"></textarea>
             </div>
             <div class="input-container">
                 <label for="project">Choose Project:</label>
@@ -137,7 +137,7 @@
         <form class="project-form">
             <div class="input-container">
                 <label for="project-title">Title:</label>
-                <input type="text" name="project-title" id="project-title" required maxlength="32">
+                <input type="text" name="project-title" id="project-title" required maxlength="32" placeholder="Project Title">
             </div>
             <div class="input-container">
                 <label for="project-priority">Set Priority:</label>
@@ -157,15 +157,15 @@
 
     <div class="details-card-container">
         <div class="details-card">
-            <h3 class="det-todo-title">Code</h3>
-            <p class="det-todo-description">just code blah blah blah</p>
+            <h3 class="det-todo-title"></h3>
+            <p class="det-todo-description"></p>
             <p>Due Date:
             <span class="det-todo-duedate">
                 <span class="date"></span><span class="time"></span>
             </span>
             </p>
-            <p class="det-todo-priority">Priority: <span>***</span></p>
-            <pre class="det-todo-notes">blah blah blah blah blah</pre>
+            <p class="det-todo-priority">Priority: <span></span></p>
+            <pre class="det-todo-notes"></pre>
             
             <div class="det-todo-btns-container">
                 <button type="button" class="todo-edit-btn btn-circle" title="Edit">

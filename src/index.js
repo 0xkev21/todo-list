@@ -90,6 +90,7 @@ function removeProject (index) {
     TodoFunctions.deleteItem(projects, index);
     updateProjects();
     if(currentPage) updatePage(0);
+    closeForm(projectForm);
     updateData();
 }
 
@@ -238,7 +239,6 @@ addProjectBtn.addEventListener('click', (e) => {
 removeProjectBtn.addEventListener('click', function() {
     const index = + this.parentNode.getAttribute('data-index');
     removeProject(index);
-    updateData();
 })
 
 // Navigate Projects
@@ -249,6 +249,8 @@ homeBtn.addEventListener('click', () => {
 });
 myProjectsBtn.addEventListener('click', () => {
     projectsDiv.classList.toggle('show');
+    const icon = myProjectsBtn.querySelector('span');
+    icon.textContent = icon.textContent === 'expand_more' ? 'expand_less' : 'expand_more';
 });
 allListsBtn.addEventListener('click', () => {
     currentPage = 'allLists';
