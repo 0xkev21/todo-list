@@ -168,6 +168,7 @@ cancelBtns.forEach(btn => {
 function showEditForm(projectIndex, index) {
     editingTodo = {projectIndex, index};
     const todo = projects[projectIndex].list[index];
+    console.log(todo);
     todoTitle.value = todo.title;
     todoDescription.value = todo.description;
     todoDate.value = todo.dueDate.split('T')[0];
@@ -277,9 +278,9 @@ function showTodoDetails(projectIndex, index) {
     todoDeleteBtn.onclick = () => {
         removeTodoItem(todo.project, index);
     };
-    todoEditBtn.addEventListener('click', () => {
+    todoEditBtn.onclick = function () {
         showEditForm(projectIndex, index);
-    })
+    }
     todoDetailsDiv.classList.add('show');
     todoDetailsDiv.addEventListener('click', () => {
         todoDetailsDiv.classList.remove('show');
@@ -293,18 +294,18 @@ function refreshEventListeners() {
     const todoDetailsBtns = document.querySelectorAll('.todo-details');
 
     todoDoneBtns.forEach(doneBtn => {
-        doneBtn.addEventListener('click', () => {
+        doneBtn.onclick =  function () {
             const index = + doneBtn.parentNode.parentNode.getAttribute('data-index');
             const projectIndex = + doneBtn.parentNode.parentElement.getAttribute('data-project');
             updateDoneStatus(projectIndex, index);
-        });
+        };
     });
     todoDetailsBtns.forEach(detailsBtn => {
-        detailsBtn.addEventListener('click', () => {
+        detailsBtn.onclick = function () {
             const index = + detailsBtn.parentNode.parentNode.getAttribute('data-index');
             const projectIndex = + detailsBtn.parentNode.parentElement.getAttribute('data-project');
             showTodoDetails(projectIndex, index);
-        })
+        }
     })
 }
 
@@ -322,12 +323,12 @@ function getData() {
     const formattedDate = DateFunctions.getFormattedDate(nextWeek) + "T12:00:00";
     if(projectsString) {
         projects = JSON.parse(projectsString);
-        projects.forEach(project => {
-            Object.setPrototypeOf(project, ProjectMaker);
-            project.list.forEach(todo => {
+        projects.forEach((project) => {
+            project.list.forEach((todo) => {
                 Object.setPrototypeOf(todo, TodoMaker);
             })
-        });
+            Object.setPrototypeOf(project, ProjectMaker);
+        })
     } else {
         projects = [new ProjectMaker('Home', null)];
         addTodoItem(

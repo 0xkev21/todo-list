@@ -24,8 +24,9 @@ function deleteItem (array, index) {
 
 function editTodo(projects, todo, newTitle, newDes, newDueDate, newPriority, newNotes, newProject) {
     if(todo.projectIndex !== newProject) {
+        const currentTodo = projects[todo.projectIndex].list[todo.index];
         projects[todo.projectIndex].list.splice(todo.index, 1);
-        projects[newProject].list.push(new TodoMaker(newTitle, newDes, newDueDate, newPriority, newNotes, todo.done, newProject));
+        projects[newProject].list.push(new TodoMaker(newTitle, newDes, newDueDate, newPriority, newNotes, currentTodo.done, newProject));
     } else {
         const editingTodo = projects[todo.projectIndex].list[todo.index];
         changeTitle(editingTodo, newTitle);
