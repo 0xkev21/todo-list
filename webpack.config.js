@@ -18,6 +18,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             clear: true,
+            favicon: './src/assets/tick-mark.png',
         }),
         new MiniCssExtractPlugin(),
     ],

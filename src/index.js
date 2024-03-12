@@ -89,7 +89,7 @@ function addProject (name, priority) {
 function removeProject (index) {
     TodoFunctions.deleteItem(projects, index);
     updateProjects();
-    if(currentPage) updatePage(0);
+    if(!currentPage) updatePage(0);
     closeForm(projectForm);
     updateData();
 }
@@ -168,7 +168,6 @@ cancelBtns.forEach(btn => {
 function showEditForm(projectIndex, index) {
     editingTodo = {projectIndex, index};
     const todo = projects[projectIndex].list[index];
-    console.log(todo);
     todoTitle.value = todo.title;
     todoDescription.value = todo.description;
     todoDate.value = todo.dueDate.split('T')[0];
