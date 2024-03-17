@@ -59,3 +59,21 @@ input[name='theme-switch']:checked ~ .light {
 input[name='theme-switch']:not(:checked) ~ .dark {
     display: none;
 }
+
+input[name='theme-switch'] ~ span {
+    animation: spin 300ms ease-out;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(90deg) scale(0.1);
+        opacity: 0;
+    }
+    80% {
+        opacity: 1;
+        transform: rotate(-9deg) scale(1.2);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

@@ -72,6 +72,7 @@ input, textarea, select {
 aside {
     position: absolute;
     left: -300px;
+    transition: left 300ms ease-in-out;
 
     .profile {
         display: flex;
@@ -143,7 +144,8 @@ main {
     position: absolute;
     left: -300px;
     width: 100vw;
-    
+    transition: width 300ms ease-in-out,
+    left 300ms ease-in-out;
 
     h2 {
         text-align: center;
@@ -180,8 +182,9 @@ main {
     }
 }
 .show-side-bar main {
+    right: 0;
     left: 0;
-    width: auto;
+    width: 100%;
 }
 
 .form-container.show {
@@ -405,7 +408,7 @@ form > .btn-container {
         width: 100vw;
         left: -100vw;
     }
-    .show-side-bar aside {
+    aside {
         z-index: 2;
     }
     main {
